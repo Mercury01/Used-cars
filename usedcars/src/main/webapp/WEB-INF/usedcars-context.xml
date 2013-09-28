@@ -13,11 +13,11 @@
 
 	<tx:annotation-driven/>
 	
-	<!-- 
-	<bean id="poiController" class="org.mercury.poi.controller.PoiController">
-		<property name="poiService" ref="poiService"></property>
-	</bean>
-	 -->
+	
+<!-- 	<bean id="poiController" class="org.bmem"> -->
+<!-- 		<property name="poiService" ref="poiService"></property> -->
+<!-- 	</bean> -->
+	
 	 <bean id="dao" class="org.bmema.usedcars.dao.Dao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -34,7 +34,9 @@
 		<property name="dao" ref="dao"></property>
 	</bean>
 	
+	<!-- **************************JACKSON************************************* -->
 	
+	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper" />
 		
 	<!-- *************************HIBERNATE************************************ -->
 

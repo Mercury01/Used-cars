@@ -10,7 +10,6 @@
 		<param-value>
 			/WEB-INF/usedcars-context.xml
 			/WEB-INF/usedcars-security.xml
-			/WEB-INF/log4j-context.xml
 		</param-value>
 	</context-param>
 	

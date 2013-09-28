@@ -19,7 +19,7 @@
 	
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/css/**" location="/css/" />
-	<mvc:resources mapping="/resources/**" location="/" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/tags/**" location="/tags/" />
 	
 	<context:annotation-config />
@@ -28,12 +28,12 @@
 	<tx:annotation-driven />
 	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-<!-- 	    <property name="mediaTypes"> -->
-<!-- 	        <map> -->
-<!-- 	            <entry key="json" value="application/json" /> -->
+	    <property name="mediaTypes">
+	        <map>
+	            <entry key="json" value="application/json" />
 <!-- 	            <entry key="xml" value="application/xml" /> -->
-<!-- 	        </map> -->
-<!-- 	    </property> -->
+	        </map>
+	    </property>
 	    <property name="viewResolvers">
 	    	<list>
 	    		<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,21 +43,21 @@
 				</bean>
 	    	</list>
 	    </property>
-<!-- 	    <property name="defaultViews"> -->
-<!-- 	        <list> -->
-<!-- 	            <bean -->
-<!-- 	                class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"> -->
-<!-- 	                <property name="objectMapper"> -->
-<!-- 	                    <ref bean="JacksonObjectMapper" /> -->
-<!-- 	                </property> -->
-<!-- 	            </bean> -->
+	    <property name="defaultViews">
+	        <list>
+	            <bean
+	                class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+	                <property name="objectMapper">
+	                    <ref bean="jacksonMapper" />
+	                </property>
+	            </bean>
 <!-- 	            <bean id="poi" class="org.springframework.web.servlet.view.xml.MarshallingView"> -->
 <!-- 	                <property name="marshaller"> -->
 <!-- 	                    <ref bean="marshaller" /> -->
 <!-- 	                </property> -->
 <!-- 	            </bean> -->
-<!-- 	        </list> -->
-<!-- 	    </property> -->
+	        </list>
+	    </property>
 	    <property name="favorPathExtension" value="false" />
 	    <property name="favorParameter" value="true" />
 	    <property name="useNotAcceptableStatusCode" value="true" />

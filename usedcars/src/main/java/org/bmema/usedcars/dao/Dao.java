@@ -1,14 +1,21 @@
 package org.bmema.usedcars.dao;
 
-import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.bmema.usedcars.entity.Vehicle;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 @Repository
 public class Dao {
 
 	protected static Logger logger = Logger.getLogger("Dao");
 	
+	@Autowired
 	private SessionFactory sessionFactory;
 	
 	public SessionFactory getSessionFactory() {
@@ -19,6 +26,24 @@ public class Dao {
 		this.sessionFactory = sessionFactory;
 	}
 
+	public Vehicle getVehicle(String licensePlate) {
+		try {
+			return (Vehicle) sessionFactory.getCurrentSession().get(Vehicle.class, licensePlate);
+		} catch (Exception e) {
+			logger.error("Unable to get vehicle with license plate: " + licensePlate, e);
+			return null;
+		}
+	}
+
+	public List<Vehicle> getVehicles(Vehicle criteria) {
+		try {
+			criteria.toString();
+		} catch (Exception e) {
+			logger.error("Unable to get vehicles based on criteria: " + criteria.toString(), e);
+		}
+		return null;
+	}
+	
 //	public Poi getPoi(Integer id) {
 //		logger.info("Received request to retrieve a poi from the database");
 //		
