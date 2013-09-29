@@ -2,6 +2,7 @@
 <html xmlns:ng="http://angularjs.org" data-ng-app>
 <head>
 <!--     <link rel="stylesheet" href="resources/todo.css"> -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 </head>
 <body data-ng-controller="vehicleCtrl">
 	<h2>Használt autó kereskedelem</h2>
@@ -24,7 +25,9 @@
 				<label>Ár</label><br /> range slider helye
 			</p>	
 			<p>
-				<label>Évjárat</label><br /> range slider helye
+				<label>Évjárat</label><br />   
+				<input type="text" id="year-value-text" style="border: 0; color: #f6931f; font-weight: bold;" />
+				<div id="year-slider"></div>
 			</p>
 			<p>
 				<label>Ajtók száma</label><br /> <select data-ng-model="doors"></select>
@@ -53,7 +56,27 @@
 <!-- 	</div> -->
 </body>
 
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="resources/vehicleCtrl.js"></script>
+<script type="text/javascript" src="resources/vehicleCtrl.js"></script>
+
+<script>
+  $(function() {
+    $( "#year-slider" ).slider({
+      range: true,
+      min: 1950,
+      max: 2013,																	//TODO évszám max kitalálása
+      values: [ 2000, 2010 ],
+      slide: function( event, ui ) {
+        $( "#year-value-text" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      }
+    });
+    $( "#year-value-text" ).val($( "#year-slider" ).slider( "values", 0 ) +
+      " - " + $( "#year-slider" ).slider( "values", 1 ) );
+  });
+  </script>
+
+
 </html>

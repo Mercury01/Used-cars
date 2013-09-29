@@ -20,7 +20,7 @@ function vehicleCtrl($scope, $http) {
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
-	}
+	};
 
 	$scope.vehicles = [ {
 		text : 'learn angular',
