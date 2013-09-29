@@ -10,6 +10,17 @@ function vehicleCtrl($scope, $http) {
 			$scope.result = "Error";
 		});
 	};
+	
+	$scope.searchBtnClk = function() {
+		$http({
+			url : "search",
+			method : "POST",
+		}).success(function(data) {
+			alert(data);	//TODO - JSON
+		}).error(function(data) {
+			$scope.result = "Error";
+		});
+	}
 
 	$scope.vehicles = [ {
 		text : 'learn angular',
