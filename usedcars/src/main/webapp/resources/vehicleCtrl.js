@@ -21,6 +21,19 @@ function vehicleCtrl($scope, $http) {
 			$scope.result = "Error";
 		});
 	};
+	
+	$scope.types = [ {name: "Bármelyik"}, 
+	                 {name: "Sport"}, 
+	                 {name: "Pickup"}, 
+	                 {name: "Terepjáró"},
+	                 {name: "Cabrio"}, 
+	                 {name: "Coupé"}, 
+	                 {name: "Kisbusz"}, 
+	                 {name: "Kombi"}, 
+	                 {name: "Sedan"}
+	                ];
+	$scope.type = $scope.types[1];
+	
 
 	$scope.vehicles = [ {
 		text : 'learn angular',

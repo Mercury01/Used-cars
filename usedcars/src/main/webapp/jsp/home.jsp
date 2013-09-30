@@ -1,16 +1,18 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" data-ng-app>
 <head>
-<!--     <link rel="stylesheet" href="resources/todo.css"> -->
+    <link rel="stylesheet" href="resources/todo.css">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 </head>
 <body data-ng-controller="vehicleCtrl">
 	<h2>Használt autó kereskedelem</h2>
-	<div>
+	
+	<div id="form-div">
 		<h3>Keresési kritériumok</h3>
 		<form>
 			<p>
-				<label>Típus</label><br /> <select data-ng-model="types"></select>
+				<label>Típus</label><br /> 
+				<select data-ng-model="type" data-ng-options="t.name for t in types"></select>
 			</p>
 			<p>
 				<label>Márka</label><br /> <input type="text" data-ng-model="brand" />
@@ -22,11 +24,13 @@
 				<label>Szín</label><br /> <select data-ng-model="colors"></select>
 			</p>
 			<p>
-				<label>Ár</label><br /> range slider helye
+				<label>Ár</label><br /> 
+				<input type="text" id="price-value-text" class="range-values" />
+				<div id="price-slider"></div>
 			</p>	
 			<p>
 				<label>Évjárat</label><br />   
-				<input type="text" id="year-value-text" style="border: 0; color: #f6931f; font-weight: bold;" />
+				<input type="text" id="year-value-text" class="range-values" />
 				<div id="year-slider"></div>
 			</p>
 			<p>
@@ -35,11 +39,10 @@
 			<p>További menupontok: </p>
 			<p><input type="button" data-ng-click="searchBtnClk()" value="Keresés"></p>
 		</form>
-
-
-
 	</div>
-	<input type="button" value="Get asd" ng-click="vehicleDetails()"> {{result}}
+	
+	
+	<input type="button" value="Get asd" data-ng-click="vehicleDetails()"> {{result}}
 
 	<!-- ------------------------------------------------ -->
 
@@ -67,7 +70,7 @@
     $( "#year-slider" ).slider({
       range: true,
       min: 1950,
-      max: 2013,																	//TODO évszám max kitalálása
+      max: 2013,																	
       values: [ 2000, 2010 ],
       slide: function( event, ui ) {
         $( "#year-value-text" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
@@ -75,6 +78,20 @@
     });
     $( "#year-value-text" ).val($( "#year-slider" ).slider( "values", 0 ) +
       " - " + $( "#year-slider" ).slider( "values", 1 ) );
+    
+    $( "#price-slider" ).slider({
+        range: true,
+        min: 0,
+        max: 20000000,																	
+        values: [ 100000, 2000000 ],
+        slide: function( event, ui ) {
+        	var lowerEnd = ui.values[ 0 ];
+        	var higherEnd = ui.values[ 1 ];        	
+          $( "#price-value-text" ).val(lowerEnd + " - " + higherEnd );
+        }
+      });
+      $( "#price-value-text" ).val($( "#price-slider" ).slider( "values", 0 ) +
+        " - " + $( "#price-slider" ).slider( "values", 1 ) );
   });
   </script>
 
