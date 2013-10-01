@@ -12,28 +12,57 @@ function vehicleCtrl($scope, $http) {
 	};
 	
 	$scope.searchBtnClk = function() {
+		
+//		var form = [{
+//		           type :  $scope.type.name,
+//		           brand : $scope.brand,
+//		           model :  $scope.model,
+//		           fueltype : $scope.fueltype.name,
+//		           price : price
+//		}];
+		
+		var form = [
+			           $scope.type.name,
+			           $scope.brand,
+			           $scope.model,
+			           $scope.fueltype.name,
+			           price
+			];
+
+		
+		
 		$http({
 			url : "search",
 			method : "POST",
+			data : form//,//"hugyoshugy" + $scope.result + $scope.error,
 		}).success(function(data) {
 			alert(data);	//TODO - JSON
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
-	};
+	};	
 	
-	$scope.types = [ {name: "Bármelyik"}, 
+	$scope.types = [ {name: "Barmelyik"}, 
 	                 {name: "Sport"}, 
 	                 {name: "Pickup"}, 
-	                 {name: "Terepjáró"},
+	                 {name: "Terepjaro"},
 	                 {name: "Cabrio"}, 
-	                 {name: "Coupé"}, 
+	                 {name: "Coupe"}, 
 	                 {name: "Kisbusz"}, 
 	                 {name: "Kombi"}, 
 	                 {name: "Sedan"}
 	                ];
 	$scope.type = $scope.types[1];
 	
+	$scope.fueltypes = [ {name: "Etanol"},
+	                     {name: "Benzin"}, 
+	                     {name: "Benzin/gaz"}, 
+	                     {name: "Biodizel"}, 
+		                 {name: "Dizel"},
+		                 {name: "Elektromos"}, 
+		                 {name: "Hibrid"}, 
+	                ];
+	$scope.fueltype = $scope.fueltypes[1];
 
 	$scope.vehicles = [ {
 		text : 'learn angular',

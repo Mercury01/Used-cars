@@ -3,6 +3,8 @@ package org.bmema.usedcars.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
 import org.bmema.usedcars.entity.Vehicle;
@@ -12,6 +14,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +51,7 @@ public class VehicleController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public @ResponseBody String search(@RequestBody String request) {
-		logger.debug("	Received request to search for vehicles");
+		logger.debug("Received request to search for vehicles");
 		 
 		try {
 			Vehicle criteria = jacksonMapper.readValue(request, Vehicle.class);

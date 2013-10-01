@@ -21,12 +21,13 @@
 				<label>Modell</label><br /> <input type="text" data-ng-model="model" />
 			</p>
 			<p>
-				<label>Szín</label><br /> <select data-ng-model="colors"></select>
+				<label>Szín</label><br /> 
+				<select data-ng-model="fueltype" data-ng-options="f.name for f in fueltypes"></select>
 			</p>
 			<p>
 				<label>Ár</label><br /> 
-				<input type="text" id="price-value-text" class="range-values" />
-				<div id="price-slider"></div>
+				<input type="text" id="price-value-text" class="range-values"/>
+				<div id="price-slider" ng-model="price"></div>
 			</p>	
 			<p>
 				<label>Évjárat</label><br />   
@@ -66,6 +67,8 @@
 <script type="text/javascript" src="resources/vehicleCtrl.js"></script>
 
 <script>
+	var price;
+
   $(function() {
     $( "#year-slider" ).slider({
       range: true,
@@ -74,6 +77,7 @@
       values: [ 2000, 2010 ],
       slide: function( event, ui ) {
         $( "#year-value-text" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        price = ui.values[ 0 ];
       }
     });
     $( "#year-value-text" ).val($( "#year-slider" ).slider( "values", 0 ) +
