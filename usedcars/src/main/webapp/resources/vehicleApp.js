@@ -35,8 +35,6 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
-		
-		
 	};
 	
 	
