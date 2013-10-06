@@ -5,21 +5,33 @@ import java.lang.reflect.Field;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+//@NamedQueries({
+//	@NamedQuery(
+//		name = "critieria.search",
+//		query = "FROM Vehicle v " +
+//				"WHERE v.price BETWEEN :price_min AND :price_max "
+//				+ "v.year BETWEEN year_min AND year_max"
+//	)
+//})
 @Entity
 @Table(name = "vehicle")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Vehicle {
 	
 	@Transient
-	Logger logger = Logger.getLogger(getClass());
+	private Logger logger = Logger.getLogger(getClass());
 	
 	@Id
 	@Column(name = "license_plate")
-	public String licensePlate;
+	private String licensePlate;
 	
 	@Column(name = "price")
 	private int price;
@@ -45,8 +57,8 @@ public class Vehicle {
 	@Column(name = "transmission")
 	private String transmission;
 	
-	@Column(name = "body")
-	private String body;
+	@Column(name = "type")
+	private String type;
 	
 //	@Column(name = "color")
 //	private Color color;
@@ -159,11 +171,11 @@ public class Vehicle {
 	}
 
 	public String getBody() {
-		return body;
+		return type;
 	}
 
 	public void setBody(String body) {
-		this.body = body;
+		this.type = body;
 	}
 
 //	public Color getColor() {

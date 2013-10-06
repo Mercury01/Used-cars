@@ -36,7 +36,11 @@
 	
 	<!-- **************************JACKSON************************************* -->
 	
-	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper" >
+<!-- 	<property name="deserializationConfig" > -->
+		
+<!-- 	</property> -->
+	</bean>
 		
 	<!-- *************************HIBERNATE************************************ -->
 

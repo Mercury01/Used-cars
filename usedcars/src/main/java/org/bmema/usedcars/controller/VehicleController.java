@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
+import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -52,10 +53,13 @@ public class VehicleController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public @ResponseBody String search(@RequestBody String request) {
 		logger.debug("Received request to search for vehicles");
-		 
+		
+		logger.info(request);
+		
 		try {
-			Vehicle criteria = jacksonMapper.readValue(request, Vehicle.class);
-			return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
+			Criteria criteria = jacksonMapper.readValue(request, Criteria.class);
+			String tmp = jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
+			return tmp;
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON request", e);
 			return "Error";

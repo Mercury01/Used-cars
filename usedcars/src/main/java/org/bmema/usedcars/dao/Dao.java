@@ -3,7 +3,9 @@ package org.bmema.usedcars.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,13 +37,25 @@ public class Dao {
 		}
 	}
 
-	public List<Vehicle> getVehicles(Vehicle criteria) {
-		try {
-			criteria.toString();
-		} catch (Exception e) {
-			logger.error("Unable to get vehicles based on criteria: " + criteria.toString(), e);
-		}
-		return null;
+	
+	public List<Vehicle> getVehicles(Criteria criteria) 
+	{
+		logger.debug("Received request to search for a vehicles with criteria: " + criteria.toString());
+		
+		//Query query = sessionFactory.getCurrentSession().getNamedQuery("critieria.search");
+		String queryString = "SELECT * FROM vehicle WHERE price BETWEEN :price_min AND :price_max AND "
+							+ "year BETWEEN :year_min AND :year_max";
+
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString,"",Vehicle.class);
+		query.setParameter("price_min", criteria.getPrice_min());
+		query.setParameter("price_max", criteria.getPrice_max());
+		
+		query.setParameter("year_min", criteria.getYear_min());
+		query.setParameter("year_max", criteria.getYear_max());
+		
+		List<Vehicle> result = (List<Vehicle>) query.list();
+		//Vehicle c = (Vehicle) result.get(0);
+		return result;
 	}
 	
 //	public Poi getPoi(Integer id) {
