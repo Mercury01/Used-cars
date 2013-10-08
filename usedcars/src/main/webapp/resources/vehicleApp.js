@@ -3,7 +3,7 @@ var vehicleApp = angular.module('vehicle', []);
 vehicleApp.config(function($routeProvider) {
 	$routeProvider.
 		when("/", 
-				{templateUrl : "partials/search.jsp"}
+			{templateUrl : "partials/search.jsp"}	
 		).otherwise(
 				{redirectTo : "/"}
 		);
