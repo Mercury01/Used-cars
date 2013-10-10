@@ -1,5 +1,7 @@
 package org.bmema.usedcars.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "engine")
 public class Engine {
-	
-	@Column(name = "id")
+
+	@Column(name = "engineId")
 	@Id
 	@GeneratedValue
-	private int id;
+//    @GenericGenerator(name="gen", strategy="foreign", 
+//    	parameters=@Parameter(name="property", value="employee"))
+//	@PrimaryKeyJoinColumn
+	private int engineId;
 	
 	@Column(name = "cylinders")
 	private int cylinders;
@@ -25,11 +30,11 @@ public class Engine {
 	private int capacity;
 
 	public int getId() {
-		return id;
+		return engineId;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.engineId = id;
 	}
 
 	public int getCylinders() {

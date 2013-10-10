@@ -1,17 +1,24 @@
 package org.bmema.usedcars.entity;
 
+import java.awt.Color;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.Generated;
 
 //@NamedQueries({
 //	@NamedQuery(
@@ -25,13 +32,16 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Table(name = "vehicle")
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Vehicle {
-	
+
 	@Transient
 	private Logger logger = Logger.getLogger(getClass());
 	
 	@Id
 	@Column(name = "license_plate")
 	private String licensePlate;
+
+	@GeneratedValue
+	private int vehicleId;
 	
 	@Column(name = "price")
 	private int price;
@@ -50,9 +60,11 @@ public class Vehicle {
 	
 	@Column(name = "class")
 	private String vehicleClass;
-	
-//	@Column(name = "engine")
-//	private int engine;
+
+	//@Column(name = "engine")
+	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	//@PrimaryKeyJoinColumn
+	private Engine engine;
 	
 	@Column(name = "transmission")
 	private String transmission;
@@ -60,8 +72,8 @@ public class Vehicle {
 	@Column(name = "type")
 	private String type;
 	
-//	@Column(name = "color")
-//	private Color color;
+	@Column(name = "color")
+	private String color;
 	
 	@Column(name = "length")
 	private int length;
@@ -106,6 +118,14 @@ public class Vehicle {
 		this.licensePlate = licensePlate;
 	}
 
+	public int getVehicleId() {
+		return vehicleId;
+	}
+
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+	
 	public int getPrice() {
 		return price;
 	}
@@ -154,13 +174,13 @@ public class Vehicle {
 		this.vehicleClass = vehicleClass;
 	}
 
-//	public int getEngine() {
-//		return engine;
-//	}
-//
-//	public void setEngine(int engine) {
-//		this.engine = engine;
-//	}
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
 
 	public String getTransmission() {
 		return transmission;
@@ -178,13 +198,13 @@ public class Vehicle {
 		this.type = body;
 	}
 
-//	public Color getColor() {
-//		return color;
-//	}
-//
-//	public void setColor(Color color) {
-//		this.color = color;
-//	}
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	public int getLength() {
 		return length;

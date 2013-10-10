@@ -45,7 +45,7 @@ public class VehicleController {
 		try {
 			return jacksonMapper.writeValueAsString(dao.getVehicle(licensePlate));
 		} catch (IOException e) {
-			logger.error("Cannot parse JSON request", e);
+			logger.error("Cannot parse JSON respone", e);
 			return "Error";
 		}
 	}
@@ -58,13 +58,25 @@ public class VehicleController {
 		
 		try {
 			Criteria criteria = jacksonMapper.readValue(request, Criteria.class);
-			String tmp = jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
-			return tmp;
+			return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
 		} catch (IOException e) {
-			logger.error("Cannot parse JSON request", e);
+			logger.error("Cannot parse JSON request / respone", e);
 			return "Error";
 		}
-	}	
+	}
+	
+	@RequestMapping(value="/top/{amount}", method = RequestMethod.GET)
+	public @ResponseBody String top(@PathVariable int amount) {
+		logger.debug("Received request to get top " + amount + " vehicles");
+		
+		try {
+			//List<Vehicle> list = dao.getTopVehicles(amount);
+			return jacksonMapper.writeValueAsString(dao.getTopVehicles(amount));
+		} catch (IOException e) {
+			logger.error("Cannot parse JSON respone", e);
+			return "Error";
+		}
+	}
 	
 //	@RequestMapping(value = "/search", method = RequestMethod.POST)			//with Jacksonmapping
 //	public String postSearch(@ModelAttribute("vehicle") Vehicle criteria) {

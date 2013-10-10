@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 </head>
-<body data-ng-controller="vehicleCtrl">
+<body data-ng-controller="vehicleCtrl" data-ng-init="init()">
 
 	<div id="container">
 		<header>

@@ -37,6 +37,17 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		});
 	};
 	
+	$scope.init= function() {
+		$http({
+			url : "top/10",
+			method : "GET"
+		}).success(function(data) {
+			$scope.topList = data;
+		}).error(function(data) {
+			$scope.result = "Error";
+		});
+	};
+	
 	
 	//--------------PRICE-----------------
 	

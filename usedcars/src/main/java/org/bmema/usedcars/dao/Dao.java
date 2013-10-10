@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,7 +47,8 @@ public class Dao {
 		String queryString = "SELECT * FROM vehicle WHERE price BETWEEN :price_min AND :price_max AND "
 							+ "year BETWEEN :year_min AND :year_max";
 
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString,"",Vehicle.class);
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString).addEntity(Vehicle.class);
+//		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString,"",Vehicle.class);
 		query.setParameter("price_min", criteria.getPrice_min());
 		query.setParameter("price_max", criteria.getPrice_max());
 		
@@ -56,6 +58,18 @@ public class Dao {
 		List<Vehicle> result = (List<Vehicle>) query.list();
 		//Vehicle c = (Vehicle) result.get(0);
 		return result;
+	}
+
+	public List<Vehicle> getTopVehicles(int amount) {
+		try {
+			final String queryString = "from Vehicle order by vehicleId desc";
+			Session session = sessionFactory.getCurrentSession();
+			//List<Vehicle> list = session.createQuery(queryString).setMaxResults(amount).list();
+			return (List<Vehicle>) session.createQuery(queryString).setMaxResults(amount).list();
+		} catch (Exception e) {
+			logger.error("Unable to fetch last " + amount + " vehicles", e);
+			return null;
+		}
 	}
 	
 //	public Poi getPoi(Integer id) {

@@ -5,6 +5,7 @@
 
 <hibernate-configuration>
     <session-factory>
+    	<property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="org.bmema.usedcars.entity.Vehicle" />
         <mapping class="org.bmema.usedcars.entity.Engine"/>
         <mapping class="org.bmema.usedcars.entity.User"/>
