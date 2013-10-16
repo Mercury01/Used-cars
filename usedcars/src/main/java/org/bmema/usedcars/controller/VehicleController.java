@@ -70,10 +70,28 @@ public class VehicleController {
 		logger.debug("Received request to get top " + amount + " vehicles");
 		
 		try {
-			//List<Vehicle> list = dao.getTopVehicles(amount);
 			return jacksonMapper.writeValueAsString(dao.getTopVehicles(amount));
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON respone", e);
+			return "Error";
+		}
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public @ResponseBody String add(@RequestBody String request) {
+		logger.debug("Received request to add a vehicle");
+		
+		logger.info(request);
+		
+		try {
+			Vehicle vehicle = jacksonMapper.readValue(request, Vehicle.class);
+			if(true) {//dao.addVehicle(vehicle)) {
+				return "Success";
+			} else {
+				return "Error";
+			}
+		} catch (IOException e) {
+			logger.error("Cannot parse JSON request", e);
 			return "Error";
 		}
 	}

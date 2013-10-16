@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,12 +44,10 @@ public class Dao {
 	{
 		logger.debug("Received request to search for a vehicles with criteria: " + criteria.toString());
 		
-		//Query query = sessionFactory.getCurrentSession().getNamedQuery("critieria.search");
 		String queryString = "SELECT * FROM vehicle WHERE price BETWEEN :price_min AND :price_max AND "
 							+ "year BETWEEN :year_min AND :year_max";
 
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString).addEntity(Vehicle.class);
-//		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString,"",Vehicle.class);
 		query.setParameter("price_min", criteria.getPrice_min());
 		query.setParameter("price_max", criteria.getPrice_max());
 		
@@ -56,7 +55,6 @@ public class Dao {
 		query.setParameter("year_max", criteria.getYear_max());
 		
 		List<Vehicle> result = (List<Vehicle>) query.list();
-		//Vehicle c = (Vehicle) result.get(0);
 		return result;
 	}
 
@@ -69,6 +67,16 @@ public class Dao {
 		} catch (Exception e) {
 			logger.error("Unable to fetch last " + amount + " vehicles", e);
 			return null;
+		}
+	}
+
+	public boolean addVehicle(Vehicle vehicle) {
+		try {
+			sessionFactory.getCurrentSession().save(vehicle);
+			return true;
+		} catch (HibernateException e) {
+			logger.error("Unable to save vehicle", e);
+			return false;
 		}
 	}
 	

@@ -39,3 +39,24 @@ vehicleApp.directive('sliderYears', function() {
 		}
 	};
 });
+
+vehicleApp.directive('sliderAddYear', function() {
+	return {
+		restrict : 'A',
+		link : function(scope, elem, attrs) {
+			$(elem).slider({
+				range : false,
+				min : 0,
+				max : 2000,
+				value : 10,
+				step: 1,
+				slide : function(event, ui) {
+					scope.$apply(function() {
+						scope.addYear = ui.value;
+					});
+					console.log(scope.addYear);
+				}
+			});
+		}
+	};
+});

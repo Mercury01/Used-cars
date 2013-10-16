@@ -57,13 +57,8 @@ public class Vehicle {
 	
 	@Column(name = "model")
 	private String model;
-	
-	@Column(name = "class")
-	private String vehicleClass;
 
-	//@Column(name = "engine")
 	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	//@PrimaryKeyJoinColumn
 	private Engine engine;
 	
 	@Column(name = "transmission")
@@ -75,11 +70,11 @@ public class Vehicle {
 	@Column(name = "color")
 	private String color;
 	
-	@Column(name = "length")
-	private int length;
-	
-	@Column(name = "width")
-	private int width;
+//	@Column(name = "length")
+//	private int length;
+//	
+//	@Column(name = "width")
+//	private int width;
 	
 	@Column(name = "weight")
 	private int weight;
@@ -166,14 +161,6 @@ public class Vehicle {
 		this.model = model;
 	}
 
-	public String getVehicleClass() {
-		return vehicleClass;
-	}
-
-	public void setVehicleClass(String vehicleClass) {
-		this.vehicleClass = vehicleClass;
-	}
-
 	public Engine getEngine() {
 		return engine;
 	}
@@ -206,21 +193,21 @@ public class Vehicle {
 		this.color = color;
 	}
 
-	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-	public int getWidht() {
-		return width;
-	}
-
-	public void setWidht(int widht) {
-		this.width = widht;
-	}
+//	public int getLength() {
+//		return length;
+//	}
+//
+//	public void setLength(int length) {
+//		this.length = length;
+//	}
+//
+//	public int getWidht() {
+//		return width;
+//	}
+//
+//	public void setWidht(int widht) {
+//		this.width = widht;
+//	}
 
 	public int getWeight() {
 		return weight;
