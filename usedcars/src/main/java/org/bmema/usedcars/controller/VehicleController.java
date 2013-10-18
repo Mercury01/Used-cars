@@ -85,7 +85,7 @@ public class VehicleController {
 		
 		try {
 			Vehicle vehicle = jacksonMapper.readValue(request, Vehicle.class);
-			if(true) {//dao.addVehicle(vehicle)) {
+			if(dao.addVehicle(vehicle)) {
 				return "Success";
 			} else {
 				return "Error";

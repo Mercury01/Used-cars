@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Generated;
 
 //@NamedQueries({
@@ -30,7 +31,7 @@ import org.hibernate.annotations.Generated;
 //})
 @Entity
 @Table(name = "vehicle")
-@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class Vehicle {
 
 	@Transient
@@ -45,6 +46,9 @@ public class Vehicle {
 	
 	@Column(name = "price")
 	private int price;
+	
+	@Column(name="doorNum")
+	private int doorNum;
 	
 	@Column(name = "year")
 	private int year;
@@ -70,12 +74,9 @@ public class Vehicle {
 	@Column(name = "color")
 	private String color;
 	
-//	@Column(name = "length")
-//	private int length;
-//	
-//	@Column(name = "width")
-//	private int width;
-	
+	@Column(name = "fuel")
+	private String fuel;
+
 	@Column(name = "weight")
 	private int weight;
 	
@@ -129,6 +130,14 @@ public class Vehicle {
 		this.price = price;
 	}
 
+	public int getDoorNum() {
+		return doorNum;
+	}
+
+	public void setDoorNum(int doorNum) {
+		this.doorNum = doorNum;
+	}
+
 	public int getYear() {
 		return year;
 	}
@@ -177,12 +186,12 @@ public class Vehicle {
 		this.transmission = transmission;
 	}
 
-	public String getBody() {
+	public String getType() {
 		return type;
 	}
 
-	public void setBody(String body) {
-		this.type = body;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getColor() {
@@ -193,21 +202,13 @@ public class Vehicle {
 		this.color = color;
 	}
 
-//	public int getLength() {
-//		return length;
-//	}
-//
-//	public void setLength(int length) {
-//		this.length = length;
-//	}
-//
-//	public int getWidht() {
-//		return width;
-//	}
-//
-//	public void setWidht(int widht) {
-//		this.width = widht;
-//	}
+	public String getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(String fuel) {
+		this.fuel = fuel;
+	}
 
 	public int getWeight() {
 		return weight;

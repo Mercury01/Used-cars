@@ -39,6 +39,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	$scope.addBtnClk = function(addLicense, addType, addBrand, addModel, 
 			addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
 			addTransmission, addWeight, addImage) {
+		
 		console.log("PARAMS: ", addLicense, addType, addBrand, addModel, 
 				addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
 				addTransmission, addWeight, addImage);
@@ -57,19 +58,20 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		           color : 		addColor.name,
 		           fuel	 : 		addFuelType.name,
 		           price :		addPrice,
-		           door  :		addDoor.name,
+		           doorNum  :		addDoor.name,
 		           year	 :		"100",
 		           mileage  : 		addMileage,
-		           transmisson  : 		addTransmission.name,
+		           transmission  : 		addTransmission.name,
 		           weight  : 		addWeight,
 		           image  : 		addImage
 		};
+		
 		$http({
 			url : "add",
 			method : "POST",
 			data : JSON.stringify(addForm)
 		}).success(function(data) {
-//			alert(data);
+			$scope.init();
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
@@ -81,6 +83,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 			url : "top/10",
 			method : "GET"
 		}).success(function(data) {
+			console.log(data);
 			$scope.topList = data;
 		}).error(function(data) {
 			$scope.result = "Error";

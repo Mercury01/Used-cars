@@ -9,11 +9,11 @@
 <!-- 			</p></li> -->
 <!-- 	</ul> -->
 
-		<table>
-			<tr data-ng-repeat="topInstance in topList">
-				<td><p>
+		<table id="topTable">
+			<tr data-ng-repeat="topInstance in topList" class="topRow">
+				<td><p class="topParagraph">
 				Évjárat: {{topInstance.year}}<br />
-				Ár: {{topInstance.price}}
+				Ár: {{topInstance.price}}<br />{{topInstance}}
 				</p></td>
 			</tr>
 		</table>
