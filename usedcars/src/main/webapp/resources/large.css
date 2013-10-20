@@ -64,7 +64,7 @@ footer {
 
 /* -----------------Search - add----------------- */
 
-.addSearch {
+.functionList {
 	display: inline-block;
 	width: 40%;
 	border: 1px solid silver;
@@ -114,15 +114,15 @@ li:hover {
 
 /* -----------------Top----------------- */
 
-#topTable {
+#listTable {
 	width: 100%;
 }
 
-.topRow {
+.listRow {
 /* 	width: 100%; */
 }
 
-.topRow:hover {
+.listRow:hover {
   background: #eee;
   cursor: pointer;
 }

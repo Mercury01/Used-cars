@@ -11,6 +11,9 @@ var vehicleApp = angular.module('vehicle', []);
 	
 vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $location) {
 
+	$scope.isSearch = true;
+	$scope.isTopList = true;
+	
 	$scope.searchBtnClk = function() {
 		var searchForm = {
 			           type : 		$scope.type.name,
@@ -30,88 +33,25 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 			method : "POST",
 			data : JSON.stringify(searchForm)
 		}).success(function(data) {
-			$location.path("/");
+			$scope.searchResultList = data;
+			//$location.path("/");
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
+		
+		$scope.isTopList = false;
 	};
-
-	$scope.addBtnClk = function(addLicense, addType, addBrand, addModel, 
-			addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
-			addTransmission, addWeight, addImage) {
 		
-		console.log("PARAMS: ", addLicense, addType, addBrand, addModel, 
-				addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
-				addTransmission, addWeight, addImage);
-		
-		if (!checkNan(addType, addColor, addFuelType, addDoor, addTransmission) ||
-			!checkNumbers(addYear, addPrice, addDoor, addMileage, addWeight)) {
-			return;	//TODO mezokre irja ki, melyik miert rossz
-		}
-		
-		var addForm = {
-		           vehicleId  : 		0,
-		           licensePlate  : 		addLicense,
-		           type  : 		addType.name,
-		           brand : 		addBrand,
-		           model : 		addModel,
-		           color : 		addColor.name,
-		           fuel	 : 		addFuelType.name,
-		           price :		addPrice,
-		           doorNum  :		addDoor.name,
-		           year	 :		"100",
-		           mileage  : 		addMileage,
-		           transmission  : 		addTransmission.name,
-		           weight  : 		addWeight,
-		           image  : 		addImage
-		};
-		
-		$http({
-			url : "add",
-			method : "POST",
-			data : JSON.stringify(addForm)
-		}).success(function(data) {
-			$scope.init();
-		}).error(function(data) {
-			$scope.result = "Error";
-		});
-	};
-	
-	
 	$scope.init = function() {
 		$http({
 			url : "top/10",
 			method : "GET"
 		}).success(function(data) {
-			console.log(data);
 			$scope.topList = data;
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
 	};
-	
-//	checkNumbers = function(addLicense, addType, addBrand, addModel, 
-//			addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
-//			addTransmission, addWeight, addImage) {
-//		log("Checking numbers");
-//		var result = (isNumber(addDoor.name) && isNumber(0) &&
-//				isNumber(addPrice) && isNumber(addMileage) &&
-//				isNumber(addWeight));	
-//
-//		log("	Result: " + result);
-//		return result;
-//	};
-//	
-//	isNumber = function(string) {
-//		var pattern = new RegExp(/^\d+$/);
-//		return pattern.test(string);
-//	};
-//	
-//	log = function(string) {
-//		console.log(string);
-//	};
-	
-	$scope.isSearch = true;
 	
 	$scope.searchFuncBtnClk = function() {
 		$scope.isSearch = true;
@@ -120,6 +60,20 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	$scope.addFuncBtnClk = function() {
 		$scope.isSearch = false;
 	};
+	
+	$scope.backToTopFuncBtnClk = function() {
+		$scope.isTopList = true;
+	};
+	
+//	$scope.searchResultFuncBtnClk = function() {
+//		$scope.isTopList = true;
+//	};
+//	
+//	$scope.topFuncBtnClk = function() {
+//		$scope.isTopList = false;
+//	};
+	
+	
 	
 	//--------------PRICE-----------------
 	

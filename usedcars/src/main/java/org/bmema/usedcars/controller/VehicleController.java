@@ -1,6 +1,7 @@
 package org.bmema.usedcars.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +59,10 @@ public class VehicleController {
 		
 		try {
 			Criteria criteria = jacksonMapper.readValue(request, Criteria.class);
-			return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
+			//return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
+			List<Vehicle> list = new ArrayList<Vehicle>();
+			list.add(new Vehicle());
+			return jacksonMapper.writeValueAsString(list);
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON request / respone", e);
 			return "Error";
@@ -85,13 +89,22 @@ public class VehicleController {
 		
 		try {
 			Vehicle vehicle = jacksonMapper.readValue(request, Vehicle.class);
-			if(dao.addVehicle(vehicle)) {
+			if(true) { //dao.addVehicle(vehicle)) {
 				return "Success";
 			} else {
 				return "Error";
 			}
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON request", e);
+			return "Error";
+		}
+	}
+	
+	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+	public @ResponseBody String uploadImage(@RequestBody Object request) {
+		try{
+			return "Success";
+		} catch (Exception e) {
 			return "Error";
 		}
 	}

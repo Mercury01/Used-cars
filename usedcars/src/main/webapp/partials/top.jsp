@@ -1,4 +1,4 @@
-<div id="top-div">
+<div data-ng-controller="topCtrl">
 	<h3>Legutóbb feltöltött</h3>
 <!-- 	<ul data-ng-repeat="topInstance in topList"> -->
 <!--  		<li><img src="{{topInstance.picture}}"> -->
@@ -9,11 +9,12 @@
 <!-- 			</p></li> -->
 <!-- 	</ul> -->
 
-		<table id="topTable">
-			<tr data-ng-repeat="topInstance in topList" class="topRow">
-				<td><p class="topParagraph">
+		<table id="listTable">
+			<tr data-ng-repeat="topInstance in topList" class="listRow">
+				<td>_PIC_</td>
+				<td><p>
 				Évjárat: {{topInstance.year}}<br />
-				Ár: {{topInstance.price}}<br />{{topInstance}}
+				Ár: {{topInstance.price}}<br />
 				</p></td>
 			</tr>
 		</table>

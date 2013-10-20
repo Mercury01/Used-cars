@@ -1,4 +1,4 @@
-<div id="form-div">
+<div id="form-div" data-ng-controller="addCtrl" data-ng-init="addInit()">
 	<h3>Feltöltés</h3>
 	<form id="searchForm">
 		<table id="searchTable">
@@ -33,6 +33,7 @@
 			<tr>
 				<td><label>Évjárat</label><br /><span>{{addYear}}</span></td>
 <!-- 				<td><div id="year-slider" slider:addYear="year" ></div></td> -->
+				<td><input class="textInput" type="text" data-ng-model="addYear" placeholder="Évjárat" /></td>
 			</tr>
 			<tr>
 				<td><label>Ajtók</label></td>
@@ -53,11 +54,18 @@
 			</tr>
 			<tr>
 				<td><label>Fénykép</label></td>
-				<td><input class="fileInput" type="file" data-ng-model="addImage" /></td>
+<!-- 				<td><input id="fileInput" class="fileInput" type="file" data-ng-model="addImage" data-url="/" multiple/></td> -->
+				<td><input id="fileInput" class="fileInput" type="file" name="files[]" data-url="/usedcars/uploadImage" multiple/></td>
 			</tr>
 		</table>
-		<input type="button" data-ng-click="addBtnClk(addLicense, addType, addBrand, addModel, 
-													addColor, addFuelType, addYear, addPrice, addDoor, addMileage,
-													addTransmission, addWeight, addImage)" value="Hirdetés feladása">
+		
+		<ul>
+			<li class="functionList" data-ng-click="addBtnClk()">Hirdetés feladása</li>
+		</ul>
+		
+<!-- 		<input type="button" data-ng-click="addBtnClk(addLicense, addType, addBrand, addModel,  -->
+<!-- 													addColor, addFuelType, addYear, addPrice, addDoor, addMileage, -->
+<!-- 													addTransmission, addWeight, addImage)" value="Hirdetés feladása"> -->
+		
 	</form>
 </div>
