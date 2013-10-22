@@ -31,7 +31,7 @@
 				<td><input class="textInput" type="text" data-ng-model="addPrice" placeholder="Eladási ár" /></td>
 				</tr>
 			<tr>
-				<td><label>Évjárat</label><br /><span>{{addYear}}</span></td>
+				<td><label>Évjárat</label></td>
 <!-- 				<td><div id="year-slider" slider:addYear="year" ></div></td> -->
 				<td><input class="textInput" type="text" data-ng-model="addYear" placeholder="Évjárat" /></td>
 			</tr>
@@ -55,13 +55,23 @@
 			<tr>
 				<td><label>Fénykép</label></td>
 <!-- 				<td><input id="fileInput" class="fileInput" type="file" data-ng-model="addImage" data-url="/" multiple/></td> -->
-				<td><input id="fileInput" class="fileInput" type="file" name="files[]" data-url="/usedcars/uploadImage" multiple/></td>
+<!-- 				<td><input id="fileInput" class="fileInput" type="file" name="files[]" data-url="/usedcars/uploadImage" multiple/></td> -->
+				<td>
+					<input type="file" data-ng-model-instant id="fileToUpload" onchange="setFiles(this)" />
+				</td>
 			</tr>
 		</table>
 		
 		<ul>
 			<li class="functionList" data-ng-click="addBtnClk()">Hirdetés feladása</li>
 		</ul>
+		
+		<div data-ng-show="progressVisible">
+            <div class="percent">{{progress}}%</div>
+            <div class="progress-bar">
+                <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+            </div>
+        </div>
 		
 <!-- 		<input type="button" data-ng-click="addBtnClk(addLicense, addType, addBrand, addModel,  -->
 <!-- 													addColor, addFuelType, addYear, addPrice, addDoor, addMileage, -->

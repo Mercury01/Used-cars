@@ -2,7 +2,9 @@ package org.bmema.usedcars.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class VehicleController {
@@ -101,11 +105,22 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-	public @ResponseBody String uploadImage(@RequestBody Object request) {
+	public @ResponseBody String uploadImage(MultipartHttpServletRequest request) {
 		try{
+			saveImage(request);
 			return "Success";
 		} catch (Exception e) {
 			return "Error";
+		}
+	}
+	
+	private boolean saveImage(MultipartHttpServletRequest request) {
+		try {
+			String licensePlate = (String) request.getParameter("licensePlate");
+			MultipartFile image = (MultipartFile) request.getFile("image");
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 	
