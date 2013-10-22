@@ -1,7 +1,17 @@
 package org.bmema.usedcars.dao;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileSystemUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
@@ -12,6 +22,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Transactional
 @Repository
@@ -21,6 +32,8 @@ public class Dao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	private final String PERSISTENCE_PATH = "C:\\dev\\usedcars\\images\\";
 	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -39,7 +52,6 @@ public class Dao {
 		}
 	}
 
-	
 	public List<Vehicle> getVehicles(Criteria criteria) 
 	{
 		logger.debug("Received request to search for a vehicles with criteria: " + criteria.toString());
@@ -79,76 +91,91 @@ public class Dao {
 			return false;
 		}
 	}
+
+	public Image getThumbnail(String licensePlate) {
+		BufferedImage image = getImage(licensePlate);
+		BufferedImage scaledImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+		Graphics2D graphics = null;
+		
+		try {
+			graphics = image.createGraphics();
+			graphics.drawImage(scaledImage, 0, 0, 100, 100, null);
+			return scaledImage;
+		} catch (Exception e) {
+			logger.error("Unable to resize image for thumbnail.", e);
+			return null;
+		} finally {
+			if(graphics != null) {
+				graphics.dispose();
+			}
+		}
+	}
 	
-//	public Poi getPoi(Integer id) {
-//		logger.info("Received request to retrieve a poi from the database");
-//		
-//		Poi poi = null;
-//		try {
-//			poi = (Poi) sessionFactory.getCurrentSession().get(Poi.class, id);
-//		} catch (HibernateException e) {
-//			logger.error("Unable to load poi from database", e);
-//		}
-//		return poi;
-//	}
-//	
-//	public boolean addPoi(Poi poi) {
-//		logger.info("Received request to add poi to database.");
-//		
-//		try {
-//			sessionFactory.getCurrentSession().save(poi);
-//			return true;
-//		} catch (HibernateException e) {
-//			logger.error("Unable to add poi to database.", e);
-//			return false;
-//		}
-//	}
-//	
-//	public boolean updatePoi(Poi poi) {
-//		logger.info("Received request to update poi in database.");
-//		
-//		try {
-//			sessionFactory.getCurrentSession().update(poi);
-//			return true;
-//		} catch (HibernateException e) {
-//			logger.error("Unable to add poi to database.", e);
-//			return false;
-//		}
-//	}
-//	
-//	@SuppressWarnings("unchecked")	// the result list of the query may contain any kind of object, not only Pois
-//	public List<Poi> search(Poi criteria) {
-//		logger.debug("Received request to search for a poi in the database");
-//		
-//		Query query = sessionFactory.getCurrentSession().getNamedQuery("poi.search");
-//		query.setParameter("name", "%" + criteria.getName() + "%");
-//		query.setParameter("type", "%" + criteria.getType() + "%");
-//		query.setParameter("address", "%" + criteria.getAddress() + "%");
-//		
-//		return query.list();
-//	}
-//	
-//	public User getUser(String username) throws NotFoundException{
-//		logger.info("Received request to retrieve a user from the database.");
-//		
-//		User user = null;
-//		try {
-//			user = (User) sessionFactory.getCurrentSession().get(User.class, username);
-//			if(user == null)
-//				throw new NotFoundException("No such user.");
-//		} catch (HibernateException e) {
-//			logger.error("Unable to load user from database.", e);
-//		} 
-//		return user;
-//	}
-//
-//	public void addUser(User user) {
-//		logger.info("Received request to add user to database.");
-//		
-//		try {
-//			sessionFactory.getCurrentSession().save(user);
-//		} catch (HibernateException e) {
-//			logger.error("Unable to add user to database.", e);
-//		}
-//	}
+	public BufferedImage getImage(String licensePlate) {
+		try {
+			Vehicle vehicle = getVehicle(licensePlate);
+			File imageFile = new File(vehicle.getPicture());
+			return ImageIO.read(imageFile);
+		} catch (Exception e) {
+			logger.error("Unable to load image", e);
+			return null;
+		}
+	}
+	
+	public boolean insertImage(String licensePlate, MultipartFile image) {
+	
+		String imagePath = persistFile(image, PERSISTENCE_PATH);
+		String queryString = "UPDATE Vehicle v SET v.picture=:picture WHERE v.licensePlate=:licensePlate";
+		
+		if(imagePath == null) {
+			logger.error("Cannot insert image");
+			return false;
+		}
+		
+		try {	
+			Session session = sessionFactory.getCurrentSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter("picture", imagePath);
+			query.setParameter("licensePlate", licensePlate);
+			
+			String[] s = query.getNamedParameters();
+			
+			int result = query.executeUpdate();
+			
+			if( result == 1 ) {
+				return true;
+			} else {
+				logger.warn("Inserted image into multiple vehicles.\n" +
+							"An error exists in the database. \n" +
+							"License plate attribute may not be unique");
+				return false; 
+			}
+		} catch (Exception e) {
+			logger.error("Cannot insert image", e);
+			return false;
+		}
+	}
+	
+	private String persistFile(MultipartFile file, String path) {
+		File persistedFile;
+		
+		if(file == null) {
+			return null;
+		}
+		
+		try {
+			persistedFile = new File(path + file.getOriginalFilename());
+			if(!persistedFile.mkdirs() || !persistedFile.createNewFile()) {
+				return null;
+			}
+			
+			file.transferTo(persistedFile);
+			logger.info("File persisted: " + persistedFile.getPath());
+			return persistedFile.getPath();
+		} catch (Exception e) {
+			logger.error("Unable to persist file: " + file.getOriginalFilename(), e);
+			return null;
+		}
+		
+	}
 }

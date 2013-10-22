@@ -1,5 +1,6 @@
 package org.bmema.usedcars.controller;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -97,6 +98,7 @@ public class VehicleController {
 				return "Success";
 			} else {
 				return "Error";
+				
 			}
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON request", e);
@@ -104,25 +106,34 @@ public class VehicleController {
 		}
 	}
 	
+	@RequestMapping(value="/tumbnail/{licensePlate}", method = RequestMethod.GET)
+	public @ResponseBody String getThumbnail(@PathVariable String licensePlate) {
+		
+		Image image = dao.getThumbnail(licensePlate);
+		
+		return null;
+	}
+	
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public @ResponseBody String uploadImage(MultipartHttpServletRequest request) {
 		try{
-			saveImage(request);
-			return "Success";
+			if(saveImage(request)) {
+				return "Success";
+			} else {
+				return "Error";
+			}
 		} catch (Exception e) {
 			return "Error";
 		}
 	}
 	
 	private boolean saveImage(MultipartHttpServletRequest request) {
-		try {
-			String licensePlate = (String) request.getParameter("licensePlate");
+			String licensePlate = "asd-123"; //TODO (String) request.getParameter("licensePlate");
 			MultipartFile image = (MultipartFile) request.getFile("image");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+			return dao.insertImage(licensePlate, image);
 	}
+	
+	
 	
 //	@RequestMapping(value = "/search", method = RequestMethod.POST)			//with Jacksonmapping
 //	public String postSearch(@ModelAttribute("vehicle") Vehicle criteria) {
