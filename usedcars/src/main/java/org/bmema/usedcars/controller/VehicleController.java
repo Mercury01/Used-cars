@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
 import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.Vehicle;
+import org.bmema.usedcars.service.ImageService;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -109,7 +110,7 @@ public class VehicleController {
 	@RequestMapping(value="/tumbnail/{licensePlate}", method = RequestMethod.GET)
 	public @ResponseBody String getThumbnail(@PathVariable String licensePlate) {
 		
-		Image image = dao.getThumbnail(licensePlate);
+//		Image image = dao.getThumbnail(licensePlate);
 		
 		return null;
 	}

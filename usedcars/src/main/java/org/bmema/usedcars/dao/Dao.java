@@ -6,7 +6,12 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javassist.NotFoundException;
 
 import javax.imageio.ImageIO;
 
@@ -14,7 +19,9 @@ import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.entity.Criteria;
+import org.bmema.usedcars.entity.User;
 import org.bmema.usedcars.entity.Vehicle;
+import org.bmema.usedcars.service.ImageService;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,15 +32,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Transactional
-@Repository
+@Repository("dao")
 public class Dao {
 
 	protected static Logger logger = Logger.getLogger("Dao");
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	private final String PERSISTENCE_PATH = "C:\\dev\\usedcars\\images\\";
+	
+	@Autowired
+	ImageService imageService;
 	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -92,39 +100,18 @@ public class Dao {
 		}
 	}
 
-	public Image getThumbnail(String licensePlate) {
-		BufferedImage image = getImage(licensePlate);
-		BufferedImage scaledImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
-		Graphics2D graphics = null;
-		
+	public User getUser(String username) throws NotFoundException {
 		try {
-			graphics = image.createGraphics();
-			graphics.drawImage(scaledImage, 0, 0, 100, 100, null);
-			return scaledImage;
+			return (User) sessionFactory.getCurrentSession().get(User.class, username);
 		} catch (Exception e) {
-			logger.error("Unable to resize image for thumbnail.", e);
-			return null;
-		} finally {
-			if(graphics != null) {
-				graphics.dispose();
-			}
-		}
-	}
-	
-	public BufferedImage getImage(String licensePlate) {
-		try {
-			Vehicle vehicle = getVehicle(licensePlate);
-			File imageFile = new File(vehicle.getPicture());
-			return ImageIO.read(imageFile);
-		} catch (Exception e) {
-			logger.error("Unable to load image", e);
-			return null;
+			logger.error("Unable to get user with username: " + username, e);
+			throw new NotFoundException("No user with name " + username);
 		}
 	}
 	
 	public boolean insertImage(String licensePlate, MultipartFile image) {
 	
-		String imagePath = persistFile(image, PERSISTENCE_PATH);
+		String imagePath = persistImageAndThumbnail(image, ImageService.PERSISTENCE_PATH);
 		String queryString = "UPDATE Vehicle v SET v.picture=:picture WHERE v.licensePlate=:licensePlate";
 		
 		if(imagePath == null) {
@@ -137,8 +124,6 @@ public class Dao {
 			Query query = session.createQuery(queryString);
 			query.setParameter("picture", imagePath);
 			query.setParameter("licensePlate", licensePlate);
-			
-			String[] s = query.getNamedParameters();
 			
 			int result = query.executeUpdate();
 			
@@ -156,26 +141,58 @@ public class Dao {
 		}
 	}
 	
-	private String persistFile(MultipartFile file, String path) {
-		File persistedFile;
+	private String persistImageAndThumbnail(MultipartFile file, String path) {
+		File persistedFile, parentFile;
 		
 		if(file == null) {
 			return null;
 		}
 		
 		try {
-			persistedFile = new File(path + file.getOriginalFilename());
-			if(!persistedFile.mkdirs() || !persistedFile.createNewFile()) {
+			boolean fileComplete = false;
+			int attempt = 0;
+			do {
+				attempt++;
+				if(attempt > 1) {
+					persistedFile = new File(path + insertTimeStamp(file.getOriginalFilename()));
+				} else {
+					persistedFile = new File(path + file.getOriginalFilename());
+				}
+				parentFile = new File(persistedFile.getParent());
+				parentFile.mkdirs();
+				fileComplete = persistedFile.createNewFile();
+			} while (!fileComplete && attempt < 2);
+
+			if(fileComplete) {
+				//FileUtils.copyFile(srcFile, destFile);
+				file.transferTo(persistedFile);
+				logger.info("File persisted: " + persistedFile.getPath());
+				if(!imageService.createThumbnail(persistedFile)) {
+					logger.error("Unable to create thumbnail for file: " + file.getOriginalFilename());
+				}	
+				return persistedFile.getPath();
+			} else {
+				logger.error("Unable to persist file: " + file.getOriginalFilename());
 				return null;
 			}
 			
-			file.transferTo(persistedFile);
-			logger.info("File persisted: " + persistedFile.getPath());
-			return persistedFile.getPath();
 		} catch (Exception e) {
 			logger.error("Unable to persist file: " + file.getOriginalFilename(), e);
 			return null;
 		}
-		
+	}
+	
+	/**
+	 * 
+	 * @param fileName
+	 * @return file name with timestamp (filename_datetime.format)
+	 */
+	private String insertTimeStamp(String fileName) {
+		Date dateNow = new Date();
+		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		String timestamp = df.format(dateNow);
+		StringBuilder sb = new StringBuilder(fileName);
+		sb.insert(fileName.lastIndexOf('.'), "_" + timestamp);
+		return sb.toString();
 	}
 }

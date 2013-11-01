@@ -16,7 +16,7 @@
 
 		<security:intercept-url pattern="/add" access="hasRole('ROLE_USER')"/>
 		
-		<security:intercept-url pattern="/manage" access="hasRole('ROLE_ADMIN')"/>
+<!-- 		<security:intercept-url pattern="/manage" access="hasRole('ROLE_ADMIN')"/> -->
 		
 		<!-- 
 		<security:intercept-url pattern="/display" access="hasRole('ROLE_USER')"/>
