@@ -12,15 +12,29 @@
 	<tx:annotation-driven />
 
 	<bean id="dao" class="org.bmema.usedcars.dao.Dao">
-<!-- 		<property name="sessionFactory" ref="sessionFactory"></property> -->
+		<!-- <property name="sessionFactory" ref="sessionFactory"></property> -->
 	</bean>
 
 	<bean id="securityService" class="org.bmema.usedcars.security.SecurityService">
 		<property name="dao" ref="dao"></property>
 	</bean>
 
-	<bean id="imageService" class="org.bmema.usedcars.service.ImageService" scope="prototype">
+	<bean id="imageService" class="org.bmema.usedcars.service.ImageService"
+		scope="prototype">
 	</bean>
+
+	<!-- **************************SECURITY************************************* -->
+
+<!-- 	<bean id="exceptionTranslationFilter" -->
+<!-- 		class="org.springframework.security.web.access.ExceptionTranslationFilter"> -->
+<!-- 		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" /> -->
+<!-- 		<property name="accessDeniedHandler" ref="accessDeniedHandler" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="accessDeniedHandler" -->
+<!-- 		class="org.springframework.security.web.access.AccessDeniedHandlerImpl"> -->
+<!-- 		<property name="errorPage" value="/partials/denied.jsp" /> -->
+<!-- 	</bean> -->
 
 	<!-- **************************JACKSON************************************* -->
 

@@ -1,11 +1,6 @@
 package org.bmema.usedcars.dao;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +8,6 @@ import java.util.List;
 
 import javassist.NotFoundException;
 
-import javax.imageio.ImageIO;
-
-import org.apache.commons.io.FileSystemUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.User;
@@ -32,10 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Transactional
-@Repository("dao")
+@Repository
 public class Dao {
 
-	protected static Logger logger = Logger.getLogger("Dao");
+	protected static Logger logger = Logger.getLogger("dao");
 	
 	@Autowired
 	private SessionFactory sessionFactory;
