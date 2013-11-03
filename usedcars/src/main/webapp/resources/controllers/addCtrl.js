@@ -89,6 +89,8 @@ addCtrl = function($scope, $http) {
 				$scope.addColor, $scope.addFuelType, $scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage,
 				$scope.addTransmission, $scope.addWeight, fileToUpload);
 		
+		//TODO a Null check miatt van kikommentelve
+		
 //		if (!checkNull($scope.addType, $scope.addColor, $scope.addFuelType, $scope.addDoor, $scope.addTransmission, fileToUpload) ||	//TODO check fileToUpload
 //			!checkNumbers($scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage, $scope.addWeight)) {
 //			return;	//TODO mezokre irja ki, melyik miert rossz

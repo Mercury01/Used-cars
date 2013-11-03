@@ -11,12 +11,20 @@
 
 	<tx:annotation-driven />
 
+	<bean id="vehicleController" class="org.bmema.usedcars.controller.VehicleController">
+<!-- 		<property name="dao" ref="dao"></property> -->
+<!-- 		<property name="jacksonMapper" ref="jacksonMapper"></property> -->
+<!-- 		<property name="securityService" ref="securityService"></property> -->
+	</bean>
+
 	<bean id="dao" class="org.bmema.usedcars.dao.Dao">
-		<!-- <property name="sessionFactory" ref="sessionFactory"></property> -->
+<!-- 		<property name="sessionFactory" ref="sessionFactory"></property> -->
+<!-- 		<property name="imageService" ref="imageService"></property> -->
 	</bean>
 
 	<bean id="securityService" class="org.bmema.usedcars.security.SecurityService">
-		<property name="dao" ref="dao"></property>
+<!-- 		<property name="dao" ref="dao"></property> -->
+<!-- 		<property name="passwordEncoder" ref="passwordEncoder"></property> -->
 	</bean>
 
 	<bean id="imageService" class="org.bmema.usedcars.service.ImageService"

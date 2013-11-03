@@ -1,12 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div id="securityDiv" data-ng-controller="loginCtrl">
+	<h3>Kérlek jelentkezz be!</h3>
+	<form action="j_spring_security_check" method="post">
+		<p>
+			<label for="j_username" class="formLabel">Felhasználónév</label> 
+			<input name="j_username" type="text" class="formInput"/>
+		</p>
+		<p>
+			<label for="j_password" class="formLabel">Jelszó</label> 
+			<input name="j_password" type="password" class="formInput"/>
+		</p>
+		<p>
+			<input type="submit" value="Bejelentkezés" class="formButton"/>
+		</p>
+	</form>
+	
+	<p>Ha még nem rendelkezel fiókkal...</p>
+	
+	<h3>Regisztrálhatsz egy újat</h3>
+	<form>
+		<p>
+			<label class="formLabel">Felhasználónév</label> 
+			<input type="text" id="username" class="formInput" data-ng-model="registerUsername"/>
+		</p>
+	
+		<p>
+			<label class="formLabel">Jelszó</label> 
+			<input type="password" id="password" class="formInput" data-ng-model="registerPassword"/>
+		</p>
+	
+		<p>
+			<input type="button" value="Regisztráció" onclick="register()" class="formButton"/>
+		</p>
+	</form>
+</div>

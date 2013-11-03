@@ -23,7 +23,7 @@
 		 -->
 		 
 		<security:form-login
-				login-page="/login" 
+				login-page="/partials/login.jsp" 
 				authentication-failure-url="/login?error=true" 
 				default-target-url="/home"/>
 			
@@ -32,9 +32,9 @@
 				logout-success-url="/home" 
 				logout-url="/logout"/>
 	
-<!-- 		<security:access-denied-handler  -->
-<!-- 				error-page="/denied" -->
-<!-- 		/> -->
+		<security:access-denied-handler 
+				error-page="/partials/denied.jsp"
+		/>
 	
 	</security:http>
 	

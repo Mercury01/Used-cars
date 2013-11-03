@@ -5,7 +5,7 @@
 <link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1600px)" href="resources/medium.css" />
 <link rel="stylesheet" media="screen and (max-width: 800px)" href="resources/small.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
+<title>Használtautó-kereskedelem</title>
 </head>
 <body data-ng-controller="vehicleCtrl" data-ng-init="init()">
 
@@ -51,5 +51,6 @@
 <script type="text/javascript" src="resources/vehicleDirectives.js"></script>
 <script type="text/javascript" src="resources/controllers/topCtrl.js"></script>
 <script type="text/javascript" src="resources/controllers/addCtrl.js"></script>
+<script type="text/javascript" src="resources/controllers/loginCtrl.js"></script>
 
 </html>

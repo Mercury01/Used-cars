@@ -42,6 +42,14 @@ public class Dao {
 		this.sessionFactory = sessionFactory;
 	}
 
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+
 	public Vehicle getVehicle(String licensePlate) {
 		try {
 			return (Vehicle) sessionFactory.getCurrentSession().get(Vehicle.class, licensePlate);
@@ -186,4 +194,16 @@ public class Dao {
 		sb.insert(fileName.lastIndexOf('.'), "_" + timestamp);
 		return sb.toString();
 	}
+
+	public boolean addUser(User user) {
+		try {
+			sessionFactory.getCurrentSession().save(user);
+			return true;
+		} catch (Exception e) {
+			logger.error("Unable to add user \"" + user.getUsername() + "\"");
+			return false;
+		}
+	}
+	
+	
 }

@@ -9,7 +9,10 @@ import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
 import org.bmema.usedcars.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,16 +25,18 @@ import org.springframework.stereotype.Service;
 public class SecurityService implements UserDetailsService {
 
 	protected static Logger logger = Logger.getLogger("Security Service");
+	
+	@Autowired
+	private ShaPasswordEncoder passwordEncoder;
+	
+	@Autowired
 	private Dao dao;
 
-	public Dao getDao() {
-		return dao;
+	public boolean registerUser(User user) {
+		user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+		return dao.addUser(user);
 	}
-
-	public void setDao(Dao dao) {
-		this.dao = dao;
-	}
-
+	
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
 
@@ -82,5 +87,23 @@ public class SecurityService implements UserDetailsService {
 
 		return authList;
 	}
+
+	public Dao getDao() {
+		return dao;
+	}
+
+	public void setDao(Dao dao) {
+		this.dao = dao;
+	}
+
+	public ShaPasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
+	}
+
+	public void setPasswordEncoder(ShaPasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+	
+	
 
 }
