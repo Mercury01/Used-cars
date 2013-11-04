@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
 import org.bmema.usedcars.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -19,9 +20,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-// @Transactional(readOnly = true)
+@Transactional
 public class SecurityService implements UserDetailsService {
 
 	protected static Logger logger = Logger.getLogger("Security Service");
@@ -45,12 +47,13 @@ public class SecurityService implements UserDetailsService {
 
 		try {
 			User dbUser = dao.getUser(username);
+			if(dbUser == null) {
+				logger.error("User " + username + " not found");
+			}
 			user = new org.springframework.security.core.userdetails.User(
 					dbUser.getUsername(), dbUser.getPassword().toLowerCase(),
 					true, true, true, true, getAuthorities(dbUser.getAccess()));
-			logger.info(dbUser.getUsername() + " "
-					+ dbUser.getPassword().toLowerCase()
-					+ getAuthorities(dbUser.getAccess()));
+			logger.info("User login succesful: " + dbUser.getUsername());
 		} catch (NotFoundException e) {
 			logger.error("Error retrieving user", e);
 		} catch (Exception e) {
@@ -92,6 +95,7 @@ public class SecurityService implements UserDetailsService {
 		return dao;
 	}
 
+	@Required
 	public void setDao(Dao dao) {
 		this.dao = dao;
 	}
@@ -99,7 +103,8 @@ public class SecurityService implements UserDetailsService {
 	public ShaPasswordEncoder getPasswordEncoder() {
 		return passwordEncoder;
 	}
-
+	
+	@Required
 	public void setPasswordEncoder(ShaPasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}

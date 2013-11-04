@@ -17,6 +17,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -194,6 +195,7 @@ public class VehicleController {
 		return dao;
 	}
 
+	@Required
 	public void setDao(Dao dao) {
 		this.dao = dao;
 	}
@@ -202,6 +204,7 @@ public class VehicleController {
 		return jacksonMapper;
 	}
 
+	@Required
 	public void setJacksonMapper(ObjectMapper jacksonMapper) {
 		this.jacksonMapper = jacksonMapper;
 	}
@@ -209,7 +212,8 @@ public class VehicleController {
 	public SecurityService getSecurityService() {
 		return securityService;
 	}
-
+	
+	@Required
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
 	}

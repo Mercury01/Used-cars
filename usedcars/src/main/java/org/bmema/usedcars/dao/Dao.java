@@ -18,12 +18,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-@Transactional
 @Repository
+@Transactional
 public class Dao {
 
 	protected static Logger logger = Logger.getLogger("dao");
@@ -38,6 +39,7 @@ public class Dao {
 		return sessionFactory;
 	}
 
+	@Required
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
