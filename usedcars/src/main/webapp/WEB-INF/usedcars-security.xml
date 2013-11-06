@@ -29,7 +29,8 @@
 		<security:form-login
 				login-page="/partials/login.jsp" 
 				authentication-failure-url="/login?error=true" 
-				default-target-url="/home"/>
+				default-target-url="/"
+				always-use-default-target="true"/>
 			
 		<security:logout 
 				invalidate-session="true" 

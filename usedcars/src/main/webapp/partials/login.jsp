@@ -1,6 +1,6 @@
 <div id="securityDiv" data-ng-controller="loginCtrl">
 	<h3>Kérlek jelentkezz be!</h3>
-	<form action="j_spring_security_check" method="post">
+	<form action="j_spring_security_check?ajax=true" method="post">
 		<p>
 			<label for="j_username" class="formLabel">Felhasználónév</label> 
 			<input name="j_username" type="text" class="formInput"/>

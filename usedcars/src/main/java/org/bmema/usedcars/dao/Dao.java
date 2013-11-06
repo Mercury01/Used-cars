@@ -38,9 +38,9 @@ public class Dao {
 //	@Autowired
 	ImageService imageService;
 	
-//	public Dao() {
-//		super();
-//	}
+	public Dao() {
+		super();
+	}
 
 	public Dao(SessionFactory sessionFactory, ImageService imageService) {
 		super();
