@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.dao.Dao;
-import org.bmema.usedcars.entity.Criteria;
+//import org.bmema.usedcars.entity.Criteria;
 import org.bmema.usedcars.entity.User;
 import org.bmema.usedcars.entity.Vehicle;
 import org.bmema.usedcars.security.SecurityService;
@@ -32,26 +32,30 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.JstlView;
 
-//@Controller
+@Controller
 public class VehicleController {
 	protected static Logger logger = Logger.getLogger("controller");
 
-//	@Autowired
+	@Autowired(required=true)
 	private Dao dao;
 	
-//	@Autowired
+	@Autowired(required=true)
 	private ObjectMapper jacksonMapper;
 	
-//	@Autowired 
+	@Autowired(required=true) 
 	private SecurityService securityService;
 	
-	public VehicleController(Dao dao, ObjectMapper jacksonMapper,
-			SecurityService securityService) {
+	public VehicleController() {
 		super();
-		this.dao = dao;
-		this.jacksonMapper = jacksonMapper;
-		this.securityService = securityService;
 	}
+
+//	public VehicleController(Dao dao, ObjectMapper jacksonMapper,
+//			SecurityService securityService) {
+//		super();
+//		this.dao = dao;
+//		this.jacksonMapper = jacksonMapper;
+//		this.securityService = securityService;
+//	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String getHomePage() {
@@ -109,23 +113,23 @@ public class VehicleController {
 		return "search";
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public @ResponseBody String search(@RequestBody String request) {
-		logger.info("Received request to search for vehicles");
-		
-		logger.info(request);
-		
-		try {
-			Criteria criteria = jacksonMapper.readValue(request, Criteria.class);
-			return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
-//			List<Vehicle> list = new ArrayList<Vehicle>();
-//			list.add(new Vehicle());
-//			return jacksonMapper.writeValueAsString(list);
-		} catch (IOException e) {
-			logger.error("Cannot parse JSON request / respone", e);
-			return "Error";
-		}
-	}
+//	@RequestMapping(value = "/search", method = RequestMethod.POST)
+//	public @ResponseBody String search(@RequestBody String request) {
+//		logger.info("Received request to search for vehicles");
+//		
+//		logger.info(request);
+//		
+//		try {
+//			Criteria criteria = jacksonMapper.readValue(request, Criteria.class);
+//			return jacksonMapper.writeValueAsString(dao.getVehicles(criteria));
+////			List<Vehicle> list = new ArrayList<Vehicle>();
+////			list.add(new Vehicle());
+////			return jacksonMapper.writeValueAsString(list);
+//		} catch (IOException e) {
+//			logger.error("Cannot parse JSON request / respone", e);
+//			return "Error";
+//		}
+//	}
 	
 	@RequestMapping(value="/top", method = RequestMethod.GET)
 	public View getTop() {
@@ -203,7 +207,7 @@ public class VehicleController {
 		return dao;
 	}
 
-	@Required
+//	@Required
 	public void setDao(Dao dao) {
 		this.dao = dao;
 	}
@@ -212,7 +216,7 @@ public class VehicleController {
 		return jacksonMapper;
 	}
 
-	@Required
+//	@Required
 	public void setJacksonMapper(ObjectMapper jacksonMapper) {
 		this.jacksonMapper = jacksonMapper;
 	}
@@ -221,7 +225,7 @@ public class VehicleController {
 		return securityService;
 	}
 	
-	@Required
+//	@Required
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
 	}

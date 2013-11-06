@@ -22,8 +22,8 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/tags/**" location="/tags/" />
 	
-<!-- 	<context:annotation-config /> -->
-<!-- 	<context:component-scan base-package="org.bmema.usedcars" /> -->
+	<context:annotation-config />
+	<context:component-scan base-package="org.bmema.usedcars.controller" />
 	
 	<tx:annotation-driven />
 	
@@ -67,4 +67,17 @@
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000" />
     </bean>
+
+<!-- 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> -->
+<!-- 		<property name="mappings"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="/home/**" value-ref="vehicleController" /> -->
+<!-- 				<entry key="/top/**" value-ref="vehicleController" /> -->
+<!-- 				<entry key="/other Thing/**" value-ref="vehicleController" /> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+<!-- 		<property name="interceptors"> -->
+<!-- 			<ref bean="vehicleController" /> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 </beans>

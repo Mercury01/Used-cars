@@ -76,9 +76,12 @@
 	<bean id="imageService" class="org.bmema.usedcars.service.ImageService">
 	</bean>
 	
-	<bean id="vehicleController" class="org.bmema.usedcars.controller.VehicleController">
-		<constructor-arg name="dao" ref="dao"></constructor-arg>
-		<constructor-arg name="jacksonMapper" ref="jacksonMapper"></constructor-arg>
-		<constructor-arg name="securityService" ref="securityService"></constructor-arg>
-	</bean>
+<!-- 	<bean id="vehicleController" class="org.bmema.usedcars.controller.VehicleController"> -->
+<!-- 		<constructor-arg name="dao" ref="dao"></constructor-arg> -->
+<!-- 		<constructor-arg name="jacksonMapper" ref="jacksonMapper"></constructor-arg> -->
+<!-- 		<constructor-arg name="securityService" ref="securityService"></constructor-arg> -->
+<!-- 		<property name="dao" ref="dao"></property> -->
+<!-- 		<property name="jacksonMapper" ref="jacksonMapper"></property> -->
+<!-- 		<property name="securityService" ref="securityService"></property> -->
+<!-- 	</bean> -->
 </beans>
