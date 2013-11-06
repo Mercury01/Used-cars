@@ -32,19 +32,27 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.JstlView;
 
-@Controller
+//@Controller
 public class VehicleController {
 	protected static Logger logger = Logger.getLogger("controller");
 
-	@Autowired
+//	@Autowired
 	private Dao dao;
 	
-	@Autowired
+//	@Autowired
 	private ObjectMapper jacksonMapper;
 	
-	@Autowired 
+//	@Autowired 
 	private SecurityService securityService;
 	
+	public VehicleController(Dao dao, ObjectMapper jacksonMapper,
+			SecurityService securityService) {
+		super();
+		this.dao = dao;
+		this.jacksonMapper = jacksonMapper;
+		this.securityService = securityService;
+	}
+
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String getHomePage() {
 		logger.info("Received request to show the home page");

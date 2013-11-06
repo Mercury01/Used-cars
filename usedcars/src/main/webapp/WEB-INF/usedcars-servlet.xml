@@ -22,8 +22,8 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/tags/**" location="/tags/" />
 	
-	<context:annotation-config />
-	<context:component-scan base-package="org.bmema.usedcars" />
+<!-- 	<context:annotation-config /> -->
+<!-- 	<context:component-scan base-package="org.bmema.usedcars" /> -->
 	
 	<tx:annotation-driven />
 	

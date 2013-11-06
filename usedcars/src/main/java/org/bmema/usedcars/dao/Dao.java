@@ -19,22 +19,35 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-@Repository
+//@Repository
 @Transactional
+@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class Dao {
 
 	protected static Logger logger = Logger.getLogger("dao");
 	
-	@Autowired
+//	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Autowired
+//	@Autowired
 	ImageService imageService;
 	
+//	public Dao() {
+//		super();
+//	}
+
+	public Dao(SessionFactory sessionFactory, ImageService imageService) {
+		super();
+		this.sessionFactory = sessionFactory;
+		this.imageService = imageService;
+	}
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

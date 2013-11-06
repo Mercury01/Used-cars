@@ -3,27 +3,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+ 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+ 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
 		>
 
 	<tx:annotation-driven />
 
-	<bean id="dao" class="org.bmema.usedcars.dao.Dao">
-	</bean>
-<!-- 		<property name="sessionFactory" ref="sessionFactory"></property> -->
-<!-- 		<property name="imageService" ref="imageService"></property> -->
-
-	<bean id="securityService" class="org.bmema.usedcars.security.SecurityService">
-		<property name="dao" ref="dao"></property>
-		<property name="passwordEncoder" ref="passwordEncoder"></property>
-	</bean>
-
-	<bean id="imageService" class="org.bmema.usedcars.service.ImageService">
-	</bean>
+	
 
 	<!-- **************************JACKSON************************************* -->
 
@@ -62,5 +53,32 @@
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- *************************BUSINESS************************************ -->
+	
+	<bean id="dao" class="org.bmema.usedcars.dao.Dao">
+		<constructor-arg name="sessionFactory" ref="sessionFactory"></constructor-arg>
+		<constructor-arg name="imageService" ref="imageService"></constructor-arg>
+<!-- 		<aop:scoped-proxy  /> -->
+	</bean>
+<!-- 		<property name="sessionFactory" ref="sessionFactory"></property> -->
+<!-- 		<property name="imageService" ref="imageService"></property> -->
+
+	<bean id="securityService" class="org.bmema.usedcars.security.SecurityService">
+<!-- 		<constructor-arg name="dao" ref="dao"></constructor-arg> -->
+<!-- 		<constructor-arg name="passwordEncoder" ref="passwordEncoder"></constructor-arg> -->
+<!-- 				<aop:scoped-proxy proxy-target-class="false" /> -->
+		<property name="dao" ref="dao"></property>
+		<property name="passwordEncoder" ref="passwordEncoder"></property>
+	</bean>
+
+	<bean id="imageService" class="org.bmema.usedcars.service.ImageService">
+	</bean>
+	
+	<bean id="vehicleController" class="org.bmema.usedcars.controller.VehicleController">
+		<constructor-arg name="dao" ref="dao"></constructor-arg>
+		<constructor-arg name="jacksonMapper" ref="jacksonMapper"></constructor-arg>
+		<constructor-arg name="securityService" ref="securityService"></constructor-arg>
 	</bean>
 </beans>

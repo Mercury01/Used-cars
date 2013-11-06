@@ -22,17 +22,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@Transactional
+//@Service
+//@Transactional
 public class SecurityService implements UserDetailsService {
 
 	protected static Logger logger = Logger.getLogger("Security Service");
 	
-	@Autowired
+//	@Autowired
 	private ShaPasswordEncoder passwordEncoder;
 	
-	@Autowired
+//	@Autowired
 	private Dao dao;
+
+	public SecurityService() {
+		super();
+	}
+
+	public SecurityService(ShaPasswordEncoder passwordEncoder, Dao dao) {
+		super();
+		this.passwordEncoder = passwordEncoder;
+		this.dao = dao;
+	}
 
 	public boolean registerUser(User user) {
 		user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
