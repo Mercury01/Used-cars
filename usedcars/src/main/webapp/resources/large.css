@@ -5,53 +5,42 @@ body {
 }
 
 #container {
-	width: 50%;
+	width: 70%;
 	margin: 0px auto;
-	
+}
+
+.content {
+	width: 45%;
+	vertical-align: top;
 	background-color: rgba(50, 75, 100, 0.4);
+	border: solid red;
+	border-width: 2px 2px;
+	display: inline-block;
 	-moz-box-shadow: 3px 3px 4px #000;
 	-webkit-box-shadow: 3px 3px 4px #000;
 	box-shadow: 3px 3px 4px #000;	
 }
 
 header {
+	margin-bottom: 20px;
+}
+
+.box {
+	height: 700px;
+	overflow: auto;
+	padding: 0px 10px;
+}
+
+.sub-box {
+	height: 70px;
 	background-color: inherit;
-	width: 50%;
-	border: solid blue;
-	border-width: 2px 2px;
 }
 
 footer {
-	background-color: inherit;
+	margin-top: 20px;
+	vertical-align: middle;
 }
 
-.content {
-	border: solid red;
-	border-width: 2px 2px;
-/* 	padding: 0% 2%; */
-/* 	display: inline; */
-}
-
-#box1 {
-/* 	display: inline; */
-/* 	width: 200px; */
-	height: 300px;
-	overflow: auto;
-	width: 50%;
-}
-
-#box2 {
-	width: 50%;
-	overflow: auto;
-	height: 600px;
-/*  	display: inline;  */
-/* 	float: left; */
-/* 	width: 300px; */
-}
-
-/* #searchTable { */
-/* 	width: 500px; */
-/* } */
 #searchTable tr td:first-child {
     width: 200px;
 }
@@ -122,9 +111,24 @@ li:hover {
 /* 	width: 100%; */
 }
 
+.listRow {
+  background: rgba(50, 75, 100, 0.4);
+}
+
 .listRow:hover {
-  background: #eee;
+  background: orange;
   cursor: pointer;
+}
+
+/* -----------------Top----------------- */
+
+.thumbnail {
+	width: 70px;
+	height: 70px;
+}
+
+.topDetails {
+	width: 150px;
 }
 
 /* .topParagraph { */

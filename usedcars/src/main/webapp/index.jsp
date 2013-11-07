@@ -10,28 +10,32 @@
 <body data-ng-controller="vehicleCtrl" data-ng-init="init()">
 
 	<div id="container">
-		<header>
-			<h2>Használt autó kereskedelem</h2>
-		</header>
 
-		<div id="box1" class="content">
-<!-- 			<ul> -->
-<!-- 				<li class="functionList" data-ng-click="searchResultFuncBtnClk()">Legutóbbi</li> -->
-<!-- 				<li class="functionList" data-ng-click="topFuncBtnClk()">Feltöltés</li> -->
-<!-- 			</ul> -->
-			<div data-ng-show="isTopList" class="content" data-ng-include src="'partials/top.jsp'"></div>
-			<div data-ng-show="!isTopList" class="content" data-ng-include src="'partials/searchResult.jsp'"></div>
+		<div class="content">
+			<header class="sub-box">
+				<h2>Használt autó kereskedelem</h2>
+			</header>
+			<div id="box1" class="box">
+<!-- 				<ul> -->
+<!-- 					<li class="functionList" data-ng-click="searchResultFuncBtnClk()">Legutóbbi</li> -->
+<!-- 					<li class="functionList" data-ng-click="topFuncBtnClk()">Feltöltés</li> -->
+<!-- 				</ul> -->
+				<div data-ng-show="isTopList" data-ng-include src="'partials/top.jsp'"></div>
+				<div data-ng-show="!isTopList" data-ng-include src="'partials/searchResult.jsp'"></div>
+			</div>
 		</div>
-
-		<div id="box2" class="content">
-			<ul>
-				<li class="functionList" data-ng-click="searchFuncBtnClk()">Keresés</li>
-				<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>
-			</ul>
-			<div data-ng-show="isSearch" class="content" data-ng-include src="'partials/search.jsp'"></div>
-			<div data-ng-show="!isSearch" class="content" data-ng-include src="'partials/add.jsp'"></div>
+		
+		<div class="content">
+			<div id="box2" class="box">
+				<div data-ng-show="isSearch" data-ng-include src="'partials/search.jsp'"></div>
+				<div data-ng-show="!isSearch" data-ng-include src="'partials/add.jsp'"></div>
+				<ul>
+					<li class="functionList" data-ng-click="searchFuncBtnClk()">Keresés</li>
+					<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>
+				</ul>
+			</div>
+			<footer class="sub-box"> Készítette: Szakály Tibor, Válóczy Bálint </footer>
 		</div>
-		<footer> Készítette: Szakály Tibor, Válóczy Bálint </footer>
 
 	</div>
 

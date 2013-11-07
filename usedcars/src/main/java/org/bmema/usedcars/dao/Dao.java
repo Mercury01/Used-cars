@@ -38,6 +38,8 @@ public class Dao {
 //	@Autowired
 	ImageService imageService;
 	
+	
+	
 	public Dao() {
 		super();
 	}
@@ -96,8 +98,11 @@ public class Dao {
 		try {
 			final String queryString = "from Vehicle order by vehicleId desc";
 			Session session = sessionFactory.getCurrentSession();
-			//List<Vehicle> list = session.createQuery(queryString).setMaxResults(amount).list();
-			return (List<Vehicle>) session.createQuery(queryString).setMaxResults(amount).list();
+			List<Vehicle> list = (List<Vehicle>)session.createQuery(queryString).setMaxResults(amount).list();
+			for(Vehicle v : list) {
+				v.setThumbnail();
+			}
+			return list;
 		} catch (Exception e) {
 			logger.error("Unable to fetch last " + amount + " vehicles", e);
 			return null;
@@ -184,7 +189,7 @@ public class Dao {
 				if(!imageService.createThumbnail(persistedFile)) {
 					logger.error("Unable to create thumbnail for file: " + file.getOriginalFilename());
 				}	
-				return persistedFile.getPath();
+				return ImageService.CONTEXT_PATH + persistedFile.getName(); //persistedFile.getPath();
 			} else {
 				logger.error("Unable to persist file: " + file.getOriginalFilename());
 				return null;

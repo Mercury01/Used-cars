@@ -1,5 +1,6 @@
 package org.bmema.usedcars.entity;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.bmema.usedcars.service.ImageService;
 
 //@NamedQueries({
 //	@NamedQuery(
@@ -83,6 +85,8 @@ public class Vehicle {
 	
 	@Column(name = "picture")
 	private String picture;
+	
+	private String thumbnail;
 	
 	/**
 	 * Returns a string representation of any object. 
@@ -226,6 +230,15 @@ public class Vehicle {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail() {
+		this.thumbnail = ImageService.getThumbnailPath(new File(picture));
+	}
+	
 	
 	
 }

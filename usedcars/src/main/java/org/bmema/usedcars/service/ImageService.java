@@ -16,6 +16,7 @@ import org.imgscalr.Scalr.Mode;
 public class ImageService {
 	
 	public static final String PERSISTENCE_PATH = "C:\\dev\\usedcars\\images\\";
+	public static final String CONTEXT_PATH = "/images/";
 	public static final int THUMBNAIL_SIZE = 100;
 	private static Logger logger = Logger.getLogger("ImageService");
 	

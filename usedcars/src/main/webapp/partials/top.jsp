@@ -11,8 +11,8 @@
 
 		<table id="listTable">
 			<tr data-ng-repeat="topInstance in topList" class="listRow">
-				<td>_PIC_</td>
-				<td><p>
+				<td><img src="/usedcars/{{topInstance.thumbnail}}" class="thumbnail"/></td>
+				<td><p class="topDetails">
 				Évjárat: {{topInstance.year}}<br />
 				Ár: {{topInstance.price}}<br />
 				</p></td>
