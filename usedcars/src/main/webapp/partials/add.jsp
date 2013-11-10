@@ -1,7 +1,7 @@
 <%-- <%@ taglib prefix='sec' uri='https://www.springframework.org/security/tags' %> --%>
 <div id="form-div" data-ng-controller="addCtrl" data-ng-init="addInit()"
 	xmlns:security="http://www.springframework.org/security/tags">
-	<h3>Feltöltés</h3>
+	<h3 class="title">Feltöltés</h3>
 	<form id="searchForm">
 		<table id="searchTable">
 			<tr>

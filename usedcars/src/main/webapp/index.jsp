@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" data-ng-app="vehicle">
 <head>
+<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Audiowide&subset=latin,latin-ext' type='text/css'>
 <link rel="stylesheet" media="screen and (min-width: 1600px)" href="resources/large.css" />
 <link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1600px)" href="resources/medium.css" />
 <link rel="stylesheet" media="screen and (max-width: 800px)" href="resources/small.css" />
@@ -13,7 +14,9 @@
 
 		<div class="content">
 			<header class="sub-box">
+				&nbsp;	<!-- idk lol -->
 				<h2>Használt autó kereskedelem</h2>
+				&nbsp;
 			</header>
 			<div id="box1" class="box">
 <!-- 				<ul> -->
@@ -34,7 +37,9 @@
 					<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>
 				</ul>
 			</div>
-			<footer class="sub-box"> Készítette: Szakály Tibor, Válóczy Bálint </footer>
+			<footer class="sub-box"> 
+				Készítette: Szakály Tibor, Válóczy Bálint
+			</footer>
 		</div>
 
 	</div>

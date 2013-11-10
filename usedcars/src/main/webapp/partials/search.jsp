@@ -1,6 +1,6 @@
-<div id="form-div">
-	<h3>Keresési kritériumok</h3>
-	<form id="searchForm">
+<div id="searchForm">
+	<h3 class="title">Keresési kritériumok</h3>
+<!-- 	<form id="searchForm"> -->
 		<table id="searchTable">
 			<tr>
 				<td><label>Típus</label></td>
@@ -39,6 +39,9 @@
 				<td></td>
 			</tr>
 		</table>
-		<input type="button" data-ng-click="searchBtnClk()" value="Keresés">
-	</form>
+		<ul>
+			<li class="functionList" data-ng-click="searchBtnClk()">Keresés</li>
+		</ul>
+<!-- 		<input type="button" data-ng-click="searchBtnClk()" value="Keresés"> -->
+<!-- 	</form> -->
 </div>
