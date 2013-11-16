@@ -7,8 +7,7 @@ addCtrl = function($scope, $http) {
 	//$scope.fileToUpload = null;
 	
 	$scope.addInit = function() {
-//		$('#fileInput').fileupload({
-//	        dataType: 'json'});
+		$scope.notFilled = false;
 	};
 	
 	/*$('#fileInput').bind('fileuploadadd', function(e, data){
@@ -38,6 +37,7 @@ addCtrl = function($scope, $http) {
 	          $scope.files.push(element.files[i]);
 	        }
 	        $scope.progressVisible = false;
+	        $scope.selectedFile = $scope.files[0].name;
 	      });
 	    };
 	    
@@ -89,42 +89,41 @@ addCtrl = function($scope, $http) {
 				$scope.addColor, $scope.addFuelType, $scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage,
 				$scope.addTransmission, $scope.addWeight, fileToUpload);
 		
-		//TODO a Null check miatt van kikommentelve
+		if (!checkNull($scope.addType, $scope.addColor, $scope.addFuelType, $scope.addDoor, $scope.addTransmission, fileToUpload) ||	//TODO check fileToUpload
+			!checkNumbers($scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage, $scope.addWeight)) {
+			$scope.notFilled = true;
+			return;	//TODO mezokre irja ki, melyik miert rossz
+		}
 		
-//		if (!checkNull($scope.addType, $scope.addColor, $scope.addFuelType, $scope.addDoor, $scope.addTransmission, fileToUpload) ||	//TODO check fileToUpload
-//			!checkNumbers($scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage, $scope.addWeight)) {
-//			return;	//TODO mezokre irja ki, melyik miert rossz
-//		}
-		
-//		var addForm = {
-//		           vehicleId  : 		0,
-//		           licensePlate  : 		$scope.addLicense,
-//		           type  : 		$scope.addType.name,
-//		           brand : 		$scope.addBrand,
-//		           model : 		$scope.addModel,
-//		           color : 		$scope.addColor.name,
-//		           fuel	 : 		$scope.addFuelType.name,
-//		           price :		$scope.addPrice,
-//		           doorNum  :		$scope.addDoor.name,
-//		           year	 :		$scope.addYear,
-//		           mileage  : 		$scope.addMileage,
-//		           transmission  : 		$scope.addTransmission.name,
-//		           weight  : 		$scope.addWeight,
-//		           image  : 		$scope.addImage
-//		};
-//
-//		$http({
-//			url : "add",
-//			method : "POST",
-//			data : JSON.stringify(addForm)
-//		}).success(function(data) {
-//			$scope.init();
-//		}).error(function(data) {
-//			$scope.result = "Error";
-//		});
+		var addForm = {
+		           vehicleId  : 		0,
+		           licensePlate  : 		$scope.addLicense,
+		           type  : 		$scope.addType.name,
+		           brand : 		$scope.addBrand,
+		           model : 		$scope.addModel,
+		           color : 		$scope.addColor.name,
+		           fuel	 : 		$scope.addFuelType.name,
+		           price :		$scope.addPrice,
+		           doorNum  :		$scope.addDoor.name,
+		           year	 :		$scope.addYear,
+		           mileage  : 		$scope.addMileage,
+		           transmission  : 		$scope.addTransmission.name,
+		           weight  : 		$scope.addWeight,
+		           image  : 		$scope.addImage
+		};
+
+		$http({
+			url : "add",
+			method : "POST",
+			data : JSON.stringify(addForm)
+		}).success(function(data) {
+			$scope.init();
+		}).error(function(data) {
+			$scope.result = "Error";
+		});
 		
 		uploadFile($scope.addLicense);
-		
+		$scope.notFilled = false;
 	};
 };
 

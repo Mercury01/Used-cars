@@ -132,12 +132,12 @@ public class VehicleController {
 		}
 	}
 	
-	@RequestMapping(value="/top", method = RequestMethod.GET)
-	public View getTop() {
-		logger.info("Received request to show the top page");
-		View view = new InternalResourceView("top");
-		return view;
-	}
+//	@RequestMapping(value="/top", method = RequestMethod.GET)
+//	public View getTop() {
+//		logger.info("Received request to show the top page");
+//		View view = new InternalResourceView("top");
+//		return view;
+//	}
 	
 	@RequestMapping(value="/top/{amount}", method = RequestMethod.GET)
 	public @ResponseBody String top(@PathVariable int amount) {
@@ -151,11 +151,11 @@ public class VehicleController {
 		}
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String getAdd(@RequestBody String request) {	//TODO no params needed
-		logger.info("Received request to show the add page");
-		return "add"; 
-	}
+//	@RequestMapping(value = "/add", method = RequestMethod.GET)
+//	public String getAdd(@RequestBody String request) {	
+//		logger.info("Received request to show the add page");
+//		return "add"; 
+//	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody String add(@RequestBody String request) {
@@ -177,13 +177,13 @@ public class VehicleController {
 		}
 	}
 	
-	@RequestMapping(value="/tumbnail/{licensePlate}", method = RequestMethod.GET)
-	public @ResponseBody String getThumbnail(@PathVariable String licensePlate) {
-		//TODO implement
-//		Image image = dao.getThumbnail(licensePlate);
-		
-		return null;
-	}
+//	@RequestMapping(value="/tumbnail/{licensePlate}", method = RequestMethod.GET)
+//	public @ResponseBody String getThumbnail(@PathVariable String licensePlate) {
+//		
+////		Image image = dao.getThumbnail(licensePlate);
+//		
+//		return null;
+//	}
 	
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	public @ResponseBody String uploadImage(MultipartHttpServletRequest request) {
@@ -199,7 +199,7 @@ public class VehicleController {
 	}
 	
 	private boolean saveImage(MultipartHttpServletRequest request) {
-			String licensePlate = "asd-123"; //TODO (String) request.getParameter("licensePlate");
+			String licensePlate = (String) request.getParameter("licensePlate");
 			MultipartFile image = (MultipartFile) request.getFile("image");
 			return dao.insertImage(licensePlate, image);
 	}

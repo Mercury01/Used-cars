@@ -1,10 +1,11 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" data-ng-app="vehicle">
 <head>
+	<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> -->
 <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Audiowide&subset=latin,latin-ext' type='text/css'>
-<link rel="stylesheet" media="screen and (min-width: 1600px)" href="resources/large.css" />
-<link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1600px)" href="resources/medium.css" />
-<link rel="stylesheet" media="screen and (max-width: 800px)" href="resources/small.css" />
+<link rel="stylesheet" media="screen and (min-width: 1440px)" href="resources/css/large.css" />
+<link rel="stylesheet" media="screen and (min-width: 855px) and (max-width: 1439px)" href="resources/css/medium.css" />
+<link rel="stylesheet" media="screen and (max-width: 854px)" href="resources/css/small.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <title>Használtautó-kereskedelem</title>
 </head>
@@ -14,20 +15,21 @@
 
 		<div class="content">
 			<header class="sub-box">
-				&nbsp;	<!-- idk lol -->
+				&nbsp;
+				<!-- idk lol -->
 				<h2>Használt autó kereskedelem</h2>
 				&nbsp;
 			</header>
 			<div id="box1" class="box">
-<!-- 				<ul> -->
-<!-- 					<li class="functionList" data-ng-click="searchResultFuncBtnClk()">Legutóbbi</li> -->
-<!-- 					<li class="functionList" data-ng-click="topFuncBtnClk()">Feltöltés</li> -->
-<!-- 				</ul> -->
+				<!-- 				<ul> -->
+				<!-- 					<li class="functionList" data-ng-click="searchResultFuncBtnClk()">Legutóbbi</li> -->
+				<!-- 					<li class="functionList" data-ng-click="topFuncBtnClk()">Feltöltés</li> -->
+				<!-- 				</ul> -->
 				<div data-ng-show="isTopList" data-ng-include src="'partials/top.jsp'"></div>
 				<div data-ng-show="!isTopList" data-ng-include src="'partials/searchResult.jsp'"></div>
 			</div>
 		</div>
-		
+
 		<div class="content">
 			<div id="box2" class="box">
 				<div data-ng-show="isSearch" data-ng-include src="'partials/search.jsp'"></div>
@@ -37,9 +39,7 @@
 					<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>
 				</ul>
 			</div>
-			<footer class="sub-box"> 
-				Készítette: Szakály Tibor, Válóczy Bálint
-			</footer>
+			<footer class="sub-box"> Készítette: Szakály Tibor, Válóczy Bálint </footer>
 		</div>
 
 	</div>
