@@ -27,6 +27,8 @@
 				<!-- 				</ul> -->
 				<div data-ng-show="isTopList" data-ng-include src="'partials/top.jsp'"></div>
 				<div data-ng-show="!isTopList" data-ng-include src="'partials/searchResult.jsp'"></div>
+				
+				<div id="error1" class="errorDiv"></div>
 			</div>
 		</div>
 
@@ -38,6 +40,9 @@
 					<li class="functionList" data-ng-click="searchFuncBtnClk()">Keresés</li>
 					<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>
 				</ul>
+				
+				<div id="error2" class="errorDiv"></div>
+				
 			</div>
 			<footer class="sub-box"> Készítette: Szakály Tibor, Válóczy Bálint </footer>
 		</div>
@@ -60,6 +65,7 @@
 <script type="text/javascript" src="resources/vehicleDirectives.js"></script>
 <script type="text/javascript" src="resources/controllers/topCtrl.js"></script>
 <script type="text/javascript" src="resources/controllers/addCtrl.js"></script>
+<script type="text/javascript" src="resources/controllers/searchCtrl.js"></script>
 <script type="text/javascript" src="resources/controllers/loginCtrl.js"></script>
 
 </html>

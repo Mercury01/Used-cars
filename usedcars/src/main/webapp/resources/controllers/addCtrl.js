@@ -7,7 +7,7 @@ addCtrl = function($scope, $http) {
 	//$scope.fileToUpload = null;
 	
 	$scope.addInit = function() {
-		$scope.notFilled = false;
+//		$scope.notFilled = false;
 	};
 	
 	/*$('#fileInput').bind('fileuploadadd', function(e, data){
@@ -39,6 +39,7 @@ addCtrl = function($scope, $http) {
 	        $scope.progressVisible = false;
 	        $scope.selectedFile = $scope.files[0].name;
 	      });
+	    console.log($scope.isTopList); //TODO
 	    };
 	    
     uploadFile = function(licensePlate) {
@@ -85,14 +86,15 @@ addCtrl = function($scope, $http) {
 	
 	$scope.addBtnClk = function() {
 			
-		console.log("PARAMS: ", $scope.addLicense, $scope.addType, $scope.addBrand, $scope.addModel, 
-				$scope.addColor, $scope.addFuelType, $scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage,
-				$scope.addTransmission, $scope.addWeight, fileToUpload);
+//		console.log("PARAMS: ", $scope.addLicense, $scope.addType, $scope.addBrand, $scope.addModel, 
+//				$scope.addColor, $scope.addFuelType, $scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage,
+//				$scope.addTransmission, $scope.addWeight, fileToUpload);
 		
 		if (!checkNull($scope.addType, $scope.addColor, $scope.addFuelType, $scope.addDoor, $scope.addTransmission, fileToUpload) ||	//TODO check fileToUpload
 			!checkNumbers($scope.addYear, $scope.addPrice, $scope.addDoor, $scope.addMileage, $scope.addWeight)) {
-			$scope.notFilled = true;
-			return;	//TODO mezokre irja ki, melyik miert rossz
+//			$scope.notFilled = true;
+			showError2("Kérlek az összes mezõt töltsd ki!");
+			return;	
 		}
 		
 		var addForm = {
@@ -123,8 +125,27 @@ addCtrl = function($scope, $http) {
 		});
 		
 		uploadFile($scope.addLicense);
-		$scope.notFilled = false;
+		
+		clearForm();
 	};
+	
+	//TODO might be wrong, only tested once
+	clearForm = function() {
+		$scope.addLicense = null;
+		$scope.addType = $scope.addTypes[0];
+		$scope.addBrand = null;
+		$scope.addModel = null;
+		$scope.addColor = $scope.addColors[0];
+		$scope.addFuelType = $scope.addFueltypes[0];
+		$scope.addPrice = null;
+		$scope.addDoor = $scope.addDoors[0];
+		$scope.addYear = null;
+		$scope.addMileage = null;
+		$scope.addTransmission = $scope.addTransmissions[0];
+		$scope.addWeight = null;
+		$scope.selectedFile = null;
+	};
+	
 };
 
 

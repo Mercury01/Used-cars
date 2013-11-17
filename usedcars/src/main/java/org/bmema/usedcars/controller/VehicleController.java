@@ -131,13 +131,7 @@ public class VehicleController {
 			return "Error";
 		}
 	}
-	
-//	@RequestMapping(value="/top", method = RequestMethod.GET)
-//	public View getTop() {
-//		logger.info("Received request to show the top page");
-//		View view = new InternalResourceView("top");
-//		return view;
-//	}
+
 	
 	@RequestMapping(value="/top/{amount}", method = RequestMethod.GET)
 	public @ResponseBody String top(@PathVariable int amount) {

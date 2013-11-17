@@ -1,9 +1,7 @@
-<%-- <%@ taglib prefix='sec' uri='https://www.springframework.org/security/tags' %> --%>
 <div id="form-div" data-ng-controller="addCtrl" data-ng-init="addInit()"
 	xmlns:security="http://www.springframework.org/security/tags">
 	<h3 class="title">FeltˆltÈs</h3>
-	<div id="error" data-ng-show="notFilled">KÈrlek az osszes mezoët toltsd ki megfeleloë ÈrtÈkekkel!</div>
-	<form id="searchForm">
+<!-- 	<form id="searchForm"> -->
 		<table id="searchTable">
 			<security:authorize ifAllGranted="ROLE_ADMIN">
 			<tr>
@@ -12,7 +10,7 @@
 			</tr>
 			<tr>
 				<td><label>TÌpus</label></td>
-				<td><select data-ng-model="addType" data-ng-options="t.name for t in types"></select></td>
+				<td><select data-ng-model="addType" data-ng-options="t.name for t in addTypes"></select></td>
 			</tr>
 			<tr>
 				<td><label>M·rka</label></td>
@@ -24,11 +22,11 @@
 			</tr>
 			<tr>
 				<td><label>SzÌn</label></td>
-				<td><select data-ng-model="addColor" data-ng-options="c.name for c in colors"></select></td>
+				<td><select data-ng-model="addColor" data-ng-options="c.name for c in addColors"></select></td>
 			</tr>
 			<tr>
 				<td><label>‹zemanyag</label></td>
-				<td><select data-ng-model="addFuelType" data-ng-options="f.name for f in fueltypes"></select></td>
+				<td><select data-ng-model="addFuelType" data-ng-options="af.name for af in addFueltypes"></select></td>
 			</tr>
 			<tr>
 				<td><label>¡År</label></td>
@@ -36,12 +34,11 @@
 			</tr>
 			<tr>
 				<td><label>…vj·rat</label></td>
-				<!-- 				<td><div id="year-slider" slider:addYear="year" ></div></td> -->
-				<td><input class="textInput" type="text" data-ng-model="addYear" placeholder="√É¬âvj·rat" /></td>
+				<td><input class="textInput" type="text" data-ng-model="addYear" placeholder="…vj·rat" /></td>
 			</tr>
 			<tr>
 				<td><label>AjtÛk</label></td>
-				<td><select data-ng-model="addDoor" data-ng-options="d.name for d in doors"></select></td>
+				<td><select data-ng-model="addDoor" data-ng-options="d.name for d in addDoors"></select></td>
 			</tr>
 			<tr>
 				<td><label>Futott</label></td>
@@ -49,7 +46,7 @@
 			</tr>
 			<tr>
 				<td><label>V·ltÛ</label></td>
-				<td><select data-ng-model="addTransmission" data-ng-options="t.name for t in transmissions"></select></td>
+				<td><select data-ng-model="addTransmission" data-ng-options="t.name for t in addTransmissions"></select></td>
 			</tr>
 			<tr>
 				<td><label>Tˆmeg</label></td>
@@ -85,10 +82,10 @@
 <!-- 			<div class="progress-bar"> -->
 <!-- 				<div class="uploaded" ng-style="{'width': progress+'%'}"></div> -->
 <!-- 			</div> -->
-		</div>
+<!-- 		</div> -->
 
 		<!-- 		<input type="button" data-ng-click="addBtnClk(addLicense, addType, addBrand, addModel,  -->
 		<!-- 													addColor, addFuelType, addYear, addPrice, addDoor, addMileage, -->
 
-	</form>
+<!-- 	</form> -->
 </div>

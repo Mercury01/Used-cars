@@ -50,7 +50,7 @@ header {
 	margin-bottom: 20px;
 	text-align: center;
 	background-color: rgba(34, 126, 203, 0.6);
-	background: url("../burnout.png");
+	background: url("../background/burnout.png");
 	background-position: right;
 }
 
@@ -65,7 +65,13 @@ footer {
 	text-align: center;
 }
 
+.errorDiv {
+	margin: 0 auto;
+	text-align: center;
+}
+
 /* -----------------Search - add----------------- */
+
 .title {
 	/* 	text-align: center; */
 	/* 	background: rgba(255, 255, 255, 0.6); */
@@ -243,7 +249,7 @@ li:hover {
 	padding: 0px;
 }
 
-.topDetails {
+.details {
 	/* 	width: 150px; */
 	padding-left: 20px;
 }

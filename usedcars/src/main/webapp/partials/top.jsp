@@ -14,7 +14,7 @@
 			<td class="thumbnail">
 					<img data-ng-src="/usedcars/{{topInstance.thumbnail}}" class="thumbnail" />
 				</td>
-			<td class="topDetails">
+			<td class="details">
 					<div><b><span>{{topInstance.brand}}</span> <span>{{topInstance.model}}</span></b> </div> 
 					<div class="detailDiv">Évjárat: {{topInstance.year}}</div>
 					<div>Ár: {{topInstance.price}}</div>

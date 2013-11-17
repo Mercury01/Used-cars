@@ -80,15 +80,86 @@ public class Dao {
 	{
 		logger.debug("Received request to search for a vehicles with criteria: " + criteria.toString());
 		
-		String queryString = "SELECT * FROM vehicle WHERE price BETWEEN :price_min AND :price_max AND "
-							+ "year BETWEEN :year_min AND :year_max";
-
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString).addEntity(Vehicle.class);
+//		String queryString = "SELECT * FROM vehicle WHERE price BETWEEN :price_min AND :price_max AND "
+//							+ "year BETWEEN :year_min AND :year_max";
+		final String queryBase = "SELECT * FROM vehicle "
+				+ "WHERE price BETWEEN :price_min AND :price_max AND "
+				+ "year BETWEEN :year_min AND :year_max";
+		
+		StringBuilder queryBuilder = new StringBuilder(queryBase);
+		
+		if(criteria.getType() != null && !criteria.getType().equals("") && !criteria.getType().equals("Bármelyik")) {
+			queryBuilder.append(" AND type = :type");
+		}
+		
+		if(criteria.getBrand() != null && !criteria.getBrand().equals("") && !criteria.getBrand().equals("Bármelyik")) {
+			queryBuilder.append(" AND brand = :brand");
+		}
+		
+		if (criteria.getModel() != null && !criteria.getModel().equals("") && !criteria.getModel().equals("Bármelyik")) {
+			queryBuilder.append(" AND model = :model");
+		}
+		
+		if (criteria.getColor() != null && !criteria.getColor().equals("") && !criteria.getColor().equals("Bármelyik")) {
+			queryBuilder.append(" AND color = :color");
+		}
+		
+		if (criteria.getFuel() != null && !criteria.getFuel().equals("") && !criteria.getFuel().equals("Bármelyik")) {
+			queryBuilder.append(" AND fuel = :fuel");
+		}
+		
+		if (criteria.getDoorNum() != 0) {
+			queryBuilder.append(" AND doorNum = :doorNum");
+		}
+		
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryBuilder.toString()).addEntity(Vehicle.class);
+		
 		query.setParameter("price_min", criteria.getPrice_min());
 		query.setParameter("price_max", criteria.getPrice_max());
-		
+	
 		query.setParameter("year_min", criteria.getYear_min());
 		query.setParameter("year_max", criteria.getYear_max());
+		
+		if(criteria.getType() != null && !criteria.getType().equals("") && !criteria.getType().equals("Bármelyik")) {
+			query.setParameter("type", criteria.getType());
+		}
+		
+		if(criteria.getBrand() != null && !criteria.getBrand().equals("") && !criteria.getBrand().equals("Bármelyik")) {
+			query.setParameter("brand", criteria.getBrand());
+		}
+		
+		if (criteria.getModel() != null && !criteria.getModel().equals("") && !criteria.getModel().equals("Bármelyik")) {
+			query.setParameter("model", criteria.getModel());
+		}
+		
+		if (criteria.getColor() != null && !criteria.getColor().equals("") && !criteria.getColor().equals("Bármelyik")) {
+			query.setParameter("color", criteria.getColor());
+		}
+		
+		if (criteria.getFuel() != null && !criteria.getFuel().equals("") && !criteria.getFuel().equals("Bármelyik")) {
+			query.setParameter("fuel", criteria.getFuel());
+		}
+		
+		if (criteria.getDoorNum() != 0) {
+			query.setParameter("doorNum", criteria.getDoorNum());
+		}
+		
+//		String queryString = "SELECT * FROM vehicle "
+//				+ "WHERE price BETWEEN :price_min AND :price_max AND "
+//				+ "year BETWEEN :year_min AND :year_max AND "
+//				+ "type = :type AND "
+//				+ "brand = :brand AND "
+//				+ "model = :model AND "
+//				+ "color = :color AND "
+//				+ "fuel = :fuel AND "
+//				+ "doorNum = :doorNum";
+		
+//		Query query = sessionFactory.getCurrentSession().createSQLQuery(queryString).addEntity(Vehicle.class);
+//		query.setParameter("price_min", criteria.getPrice_min());
+//		query.setParameter("price_max", criteria.getPrice_max());
+////		
+//		query.setParameter("year_min", criteria.getYear_min());
+//		query.setParameter("year_max", criteria.getYear_max());
 		
 		List<Vehicle> result = (List<Vehicle>) query.list();
 		return result;
