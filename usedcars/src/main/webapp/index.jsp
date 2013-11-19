@@ -25,8 +25,8 @@
 				<!-- 					<li class="functionList" data-ng-click="searchResultFuncBtnClk()">Legutóbbi</li> -->
 				<!-- 					<li class="functionList" data-ng-click="topFuncBtnClk()">Feltöltés</li> -->
 				<!-- 				</ul> -->
-				<div data-ng-show="isTopList" data-ng-include src="'partials/top.jsp'"></div>
-				<div data-ng-show="!isTopList" data-ng-include src="'partials/searchResult.jsp'"></div>
+				<div data-ng-show="isTopList.value" data-ng-include src="'partials/top.jsp'"></div>
+				<div data-ng-show="!(isTopList.value)" data-ng-include src="'partials/searchResult.jsp'"></div>
 				
 				<div id="error1" class="errorDiv"></div>
 			</div>

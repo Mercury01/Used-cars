@@ -8,11 +8,14 @@ var vehicleApp = angular.module('vehicle', []);
 //				{redirectTo : "/"}
 //		);
 //});
-	
-vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $location) {
+	//TODO delete location
+vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $location, $rootScope) {
 
 	$scope.isSearch = true;
-	$scope.isTopList = true;
+//	$scope.isTopList.value = true;
+	$scope.isTopList = {
+		value:  true
+	};
 	
 //	function EventController($scope) {
 //		  $scope.$on('SearchComplete', function() {
@@ -22,15 +25,17 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 //		  });
 //		}
 	
-	$scope.searchBtnClk = function() {
+//	$scope.searchBtnClk = function() {
 //		$scope.searchResultList = search();
-//		var searchResult = $scope.search;
-//		console.log($scope.search);
+//		$scope.search;
+//		search($scope);
+//		console.log($scope.isTopList.value);
 //		$scope.search
 //		alert(searchResult);
 //		$scope.searchResultList = searchResult;
 //		$scope.isTopList = false;
-	};
+		
+//	};
 	
 //	$scope.searchBtnClk = function() {
 //		var searchForm = {
@@ -81,7 +86,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	};
 	
 	$scope.backToTopFuncBtnClk = function() {
-		$scope.isTopList = true;
+		$scope.isTopList.value = true;
 	};
 	
 //	$scope.searchResultFuncBtnClk = function() {
@@ -108,17 +113,17 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	
 	//--------------TYPES-----------------
 	
-	$scope.searchTypes = [ {name: "Bármelyik"}, 
-	                 {name: "Sport"}, 
-	                 {name: "Pickup"}, 
-	                 {name: "Terepjáró"},
-	                 {name: "Cabrio"}, 
-	                 {name: "Coupé"}, 
-	                 {name: "Kisbusz"}, 
-	                 {name: "Kombi"}, 
-	                 {name: "Sedan"}
-	                ];
-	$scope.searchType = $scope.searchTypes[0];
+//	$rootScope.searchTypes = [ {name: "Bármelyik"}, 
+//	                 {name: "Sport"}, 
+//	                 {name: "Pickup"}, 
+//	                 {name: "Terepjáró"},
+//	                 {name: "Cabrio"}, 
+//	                 {name: "Coupé"}, 
+//	                 {name: "Kisbusz"}, 
+//	                 {name: "Kombi"}, 
+//	                 {name: "Sedan"}
+//	                ];
+//	$rootScope.searchType = $scope.searchTypes[0];
 	
 
 	$scope.addTypes = [ {name: "Sport"}, 
@@ -133,16 +138,17 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	$scope.addType = $scope.addTypes[0];
 	
 	//--------------FUEL-------------------
-	$scope.searchFueltypes = [ {name : "Bármelyik"},
-	 	                 {name: "Etanol"},
-	                     {name: "Benzin"}, 
-	                     {name: "Benzin/gáz"}, 
-	                     {name: "Biodízel"}, 
-		                 {name: "Dízel"},
-		                 {name: "Elektromos"}, 
-		                 {name: "Hibrid"}
-	                ];
-	$scope.searchFueltype = $scope.searchFueltypes[0];
+	
+//	$rootScope.searchFueltypes = [ {name : "Bármelyik"},
+//	 	                 {name: "Etanol"},
+//	                     {name: "Benzin"}, 
+//	                     {name: "Benzin/gáz"}, 
+//	                     {name: "Biodízel"}, 
+//		                 {name: "Dízel"},
+//		                 {name: "Elektromos"}, 
+//		                 {name: "Hibrid"}
+//	                ];
+//	$rootScope.searchFueltype = $scope.searchFueltypes[0];
 	
 	$scope.addFueltypes = [ {name: "Etanol"},
 	                     {name: "Benzin"}, 
@@ -156,13 +162,13 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	
 	//--------------DOORS-------------------
 	
-	$scope.searchDoors = [ {name: "Bármelyik"},
-	                 {name: "2"},
-	                 {name: "3"}, 
-	                 {name: "4"}, 
-	                 {name: "5"} 
-	                ];
-	$scope.searchDoor = $scope.searchDoors[0];
+//	$rootScope.searchDoors = [ {name: "Bármelyik"},
+//	                 {name: "2"},
+//	                 {name: "3"}, 
+//	                 {name: "4"}, 
+//	                 {name: "5"} 
+//	                ];
+//	$rootScope.searchDoor = $scope.searchDoors[0];
 	
 	$scope.addDoors = [ {name: "2"},
 	                 {name: "3"}, 
@@ -173,16 +179,16 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	
 	//--------------COLORS-------------------
 	
-	$scope.searchColors = [ {name: "Bármelyik"},
-	                  {name: "Piros"},
-	                  {name: "Kék"}, 
-	                  {name: "Zöld"}, 
-	                  {name: "Sárga"},
-	                  {name: "Fehér"},
-	                  {name: "Fekete"},
-	                  {name: "Lila"}
-	                ];
-	$scope.searchColor = $scope.searchColors[0];
+//	$rootScope.searchColors = [ {name: "Bármelyik"},
+//	                  {name: "Piros"},
+//	                  {name: "Kék"}, 
+//	                  {name: "Zöld"}, 
+//	                  {name: "Sárga"},
+//	                  {name: "Fehér"},
+//	                  {name: "Fekete"},
+//	                  {name: "Lila"}
+//	                ];
+//	$rootScope.searchColor = $scope.searchColors[0];
 	
 	$scope.addColors = [ {name: "Piros"},
 		                  {name: "Kék"}, 
@@ -193,13 +199,14 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		                  {name: "Lila"}
 	                ];
 	$scope.addColor = $scope.addColors[0];
+	
 	//--------------TRANS--------------------
 	
-	$scope.searchTransmissions = [ {name: "Bármelyik"},
-	                         {name: "Automata"},
-	                         {name: "Manuális"}
-	                         ];
-	$scope.searchTransmission = $scope.searchTransmissions[0];
+//	$rootScope.searchTransmissions = [ {name: "Bármelyik"},
+//	                         {name: "Automata"},
+//	                         {name: "Manuális"}
+//	                         ];
+//	$rootScope.searchTransmission = $scope.searchTransmissions[0];
 	
 	$scope.addTransmissions = [ {name: "Automata"},
 	                         {name: "Manuális"}
