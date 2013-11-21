@@ -1,9 +1,10 @@
 @CHARSET "UTF-8";
 
 body {
-	background-image: url("../background/bg-orange2.jpg");
-	background-size: 100% auto;
-/* 	background-position: top; */
+	background-image: url("../background/Grungy-orange_medium.png");
+/* 	background-image: url("../background/bg-orange2.jpg"); */
+/* 	background-size: 100% auto; */
+	background-position: top;
 /* 	background-repeat: no-repeat; */
 
 	/* 	background-size:100% 100%; */
@@ -53,7 +54,7 @@ header {
 	margin-bottom: 20px;
 	text-align: center;
 	background-color: rgba(34, 126, 203, 0.6);
-	background: url("../background/burnout.png");
+/* 	background: url("../background/burnout.png"); */
 /* 	background-position: right bottom; */
 }
 

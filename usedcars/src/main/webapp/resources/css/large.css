@@ -53,7 +53,7 @@ header {
 	text-align: center;
 	background-color: rgba(34, 126, 203, 0.6);
 	background: url("../background/burnout.png");
-	background-position: right;
+	background-position: right bottom;
 }
 
 footer {
