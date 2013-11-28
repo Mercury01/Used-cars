@@ -40,7 +40,7 @@
 <!-- 						<div data-ng-show="!isSearch" data-ng-include src="'partials/add.jsp'"></div> -->
 						<div ng-switch on="rightContent">
 							<div ng-switch-when="search" data-ng-include src="'partials/search.jsp'"></div>
-							<div ng-switch-when="add" data-ng-include src="'partials/add.jsp'"></div>
+							<div ng-switch-when="add" data-ng-include src="'partials/add.jsp'" id="addDiv"></div>
 							<div ng-switch-when="details" data-ng-include src="'partials/details.jsp'"></div>
 					</div>
 				<ul>

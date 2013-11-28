@@ -44,6 +44,8 @@ loginCtrl = function($scope, $http) {
 //			data : JSON.stringify(loginForm)//$(".loginForm").serialize()//
 		}).success(function(data) {
 			console.log("Login successful");
+//			$('#addDiv').attr('src', $('partials/add.jsp'));
+			$scope.$broadcast("REFRESH");
 			$scope.isLoggedIn = true;
 		}).error(function(data) {
 			console.log("Login failed");

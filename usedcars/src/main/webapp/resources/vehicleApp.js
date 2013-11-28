@@ -103,6 +103,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	};
 	
 	$scope.$on("REFRESH",function() {
+		console.log("REFRESH event");
 		$http({
 			url : "top/10",
 			method : "GET"
