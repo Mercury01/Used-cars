@@ -108,6 +108,7 @@ public class VehicleController {
 		}
 	}
 	
+	//TODO not necessary
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String getSearch() {
 		logger.info("Received request to show the search page");

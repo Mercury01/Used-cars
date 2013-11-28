@@ -9,13 +9,16 @@ var vehicleApp = angular.module('vehicle', []);
 //		);
 //});
 	//TODO delete location
-vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $location, $rootScope) {
+vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $location, $rootScope, $timeout) {
 
+	//Hát ez már így marad
 	$scope.isSearch = true;
-//	$scope.isTopList.value = true;
+////	$scope.isTopList.value = true;
 	$scope.isTopList = {
 		value:  true
 	};
+//	$scope.isDetails = true; //TODO
+	$scope.rightContent = 'search';
 	
 //	function EventController($scope) {
 //		  $scope.$on('SearchComplete', function() {
@@ -72,17 +75,92 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 			method : "GET"
 		}).success(function(data) {
 			$scope.topList = data;
+			//TODO build list with JQuery
+//			$.each(data, function(index, listItem) {
+//				console.log(index);
+////				$timeout(function() {
+//					$("#searchListTable").append(
+//							'<tr class="listRow"  ng-click="getDetail(searchResult)">' +
+//								'<td class="thumbnail">' +
+//									'<img src="/usedcars/' + listItem.thumbnail + '" class="thumbnail" />' +
+//								'</td>' +
+//								'<td class="details">' +
+//									'<div><b><span>' + listItem.brand + '</span> <span>' + listItem.model + '</span></b> </div>' +
+//									'<div class="detailDiv">Évjárat: ' + listItem.year + '</div>' +
+//									'<div>Ár: ' + listItem.price + '</div>' +
+//								'</td>' +
+//							'</tr>'
+//							);
+////				}, 1000);
+//				
+//			});	
 		}).error(function(data) {
 			$scope.result = "Error";
 		});
 	};
 	
+//	$scope.initTop = function() {
+//		console.log("bang");
+//		if (screen.width <= 1440) {
+//			console.log("bang");
+//			document.location = "/partials/login.jsp";
+//		}
+//	};
+	
+	$scope.getImage = function(vehicle) {
+		console.log(vehicle.thumbnail);
+//		$scope.thumbnail = vehicle.thumbnail;
+//		 $timeout(function () {
+//			 console.log(vehicle.thumbnail);
+//		    }, 10000);
+	};
+	
+	$scope.getDetail = function(vehicle) {
+		console.log("Click");
+//		$scope.isDetails = true;
+//		/vehicleDetails/{licensePlate}
+		
+		$http({
+			url : "vehicleDetails/" + vehicle.licensePlate,
+			method : "GET"
+		}).success(function(data) {
+//			$scope.detailLicense = data.licensePlate;
+			$scope.detailsVehicle = data;
+			console.log(data);
+//			$scope.topList = data;
+//			$.each(data, function(index, listItem) {
+//				console.log(index);
+////				$timeout(function() {
+//					$("#searchListTable").append(
+//							'<tr class="listRow">' +
+//								'<td class="thumbnail">' +
+//									'<img src="/usedcars/' + listItem.thumbnail + '" class="thumbnail" />' +
+//								'</td>' +
+//								'<td class="details">' +
+//									'<div><b><span>' + listItem.brand + '</span> <span>' + listItem.model + '</span></b> </div>' +
+//									'<div class="detailDiv">Évjárat: ' + listItem.year + '</div>' +
+//									'<div>Ár: ' + listItem.price + '</div>' +
+//								'</td>' +
+//							'</tr>'
+//							);
+////				}, 1000);
+//				
+//			});	
+		}).error(function(data) {
+			$scope.result = "Error";
+		});
+		$scope.rightContent = 'details';
+		
+	};
+	
 	$scope.searchFuncBtnClk = function() {
-		$scope.isSearch = true;
+//		$scope.isSearch = true;
+		$scope.rightContent = 'search';
 	};
 	
 	$scope.addFuncBtnClk = function() {
-		$scope.isSearch = false;
+//		$scope.isSearch = false;
+		$scope.rightContent = 'add';
 	};
 	
 	$scope.backToTopFuncBtnClk = function() {

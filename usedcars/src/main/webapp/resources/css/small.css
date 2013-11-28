@@ -222,7 +222,7 @@ li:hover {
 }
 
 /* -----------------List----------------- */
-#listTable {
+.listTable {
 	width: 100%;
 }
 
@@ -255,4 +255,13 @@ li:hover {
 .detailDiv {
 	margin-top: 3px;
 	margin-bottom: 3px;
+}
+
+/* ---------------Details--------------- */
+
+#detailsImage {
+/* 	height: 200px; */
+	border: solid silver;
+	border-width: 1px 1px;
+	width: 99%;
 }

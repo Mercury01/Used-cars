@@ -34,8 +34,15 @@
 
 		<div class="content">
 			<div id="box2" class="box">
-				<div data-ng-show="isSearch" data-ng-include src="'partials/search.jsp'"></div>
-				<div data-ng-show="!isSearch" data-ng-include src="'partials/add.jsp'"></div>
+<!-- 				<div data-ng-show="isDetails" data-ng-include src="'partials/details.jsp'"> -->
+<!-- 				</div> -->
+<!-- 						<div data-ng-show="isSearch" data-ng-include src="'partials/search.jsp'"></div> -->
+<!-- 						<div data-ng-show="!isSearch" data-ng-include src="'partials/add.jsp'"></div> -->
+						<div ng-switch on="rightContent">
+							<div ng-switch-when="search" data-ng-include src="'partials/search.jsp'"></div>
+							<div ng-switch-when="add" data-ng-include src="'partials/add.jsp'">add</div>
+							<div ng-switch-when="details" data-ng-include src="'partials/details.jsp'">details</div>
+					</div>
 				<ul>
 					<li class="functionList" data-ng-click="searchFuncBtnClk()">Keresés</li>
 					<li class="functionList" data-ng-click="addFuncBtnClk()">Feltöltés</li>

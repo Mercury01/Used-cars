@@ -1,9 +1,9 @@
 <div>
 	<h3 class="title">Találatok</h3>
-		<table id="listTable">
-			<tr data-ng-repeat="searchResult in searchResultList" class="listRow">
+		<table class="listTable">
+			<tr data-ng-repeat="searchResult in searchResultList" class="listRow" ng-click="getDetail(searchResult)">
 				<td class="thumbnail">
-					<img data-ng-src="/usedcars/{{searchResult.thumbnail}}" class="thumbnail" />
+					<img data-ng-src="/usedcars/{{searchResult.thumbnail}}" class="thumbnail"/>
 				</td>
 				<td class="details">
 					<div><b><span>{{searchResult.brand}}</span> <span>{{searchResult.model}}</span></b> </div> 
