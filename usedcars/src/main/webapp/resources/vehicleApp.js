@@ -18,6 +18,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		value:  true
 	};
 //	$scope.isDetails = true; //TODO
+	$scope.isEditable = false;
 	$scope.rightContent = 'search';
 	
 //	function EventController($scope) {
@@ -99,6 +100,21 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		});
 	};
 	
+	$scope.$on("REFRESH",function() {
+		$http({
+			url : "top/10",
+			method : "GET"
+		}).success(function(data) {
+			$scope.topList = data;
+		}).error(function(data) {
+			$scope.result = "Error";
+		});
+	});
+	
+//	$scope.detailsInit = function() {
+//		console.log("details init");
+//	};
+	
 //	$scope.initTop = function() {
 //		console.log("bang");
 //		if (screen.width <= 1440) {
@@ -124,8 +140,9 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 			url : "vehicleDetails/" + vehicle.licensePlate,
 			method : "GET"
 		}).success(function(data) {
-//			$scope.detailLicense = data.licensePlate;
 			$scope.detailsVehicle = data;
+			$scope.isEditable = data.editable;
+			console.log("Editable: " + $scope.isEditable);
 			console.log(data);
 //			$scope.topList = data;
 //			$.each(data, function(index, listItem) {
@@ -147,19 +164,16 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 //				
 //			});	
 		}).error(function(data) {
-			$scope.result = "Error";
+			showError2(data);
 		});
 		$scope.rightContent = 'details';
-		
 	};
 	
 	$scope.searchFuncBtnClk = function() {
-//		$scope.isSearch = true;
 		$scope.rightContent = 'search';
 	};
 	
 	$scope.addFuncBtnClk = function() {
-//		$scope.isSearch = false;
 		$scope.rightContent = 'add';
 	};
 	
@@ -167,6 +181,42 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		$scope.isTopList.value = true;
 	};
 	
+	$scope.editFuncBtnClk = function() {
+		console.log($scope.detailsVehicle.licensePlate);
+		var editForm = {
+			licensePlate : $scope.detailsVehicle.licensePlate,
+			type : $scope.detailsVehicle.type,	//TODO .name
+			brand : $scope.detailsVehicle.brand,
+			model : $scope.detailsVehicle.model,
+			color : $scope.detailsVehicle.color,//TODO .name
+			fuel : $scope.detailsVehicle.fuel,
+			price : $scope.detailsVehicle.price,
+			year : $scope.detailsVehicle.year,
+			doorNum : $scope.detailsVehicle.doorNum,//TODO .name
+			mileage : $scope.detailsVehicle.mileage,
+			transmission : $scope.detailsVehicle.transmission,//TODO .name
+			weight : $scope.detailsVehicle.weight
+		};
+		console.log(editForm);
+
+		$http({
+			url : "updateVehicle/" + $scope.detailsVehicle.licensePlate,
+			method : "POST",
+			data : JSON.stringify(editForm)
+		}).success(function(data) {
+//			init();
+			$scope.$broadcast("REFRESH");
+			console.log("Init");
+		}).error(function(data) {
+			showError2(data);
+		});
+//		init();
+//		console.log("Init outside");
+	};
+	
+	$scope.deleteFuncBtnClk = function() {
+		
+	};
 //	$scope.searchResultFuncBtnClk = function() {
 //		$scope.isTopList = true;
 //	};
@@ -274,6 +324,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		                  {name: "Sárga"},
 		                  {name: "Fehér"},
 		                  {name: "Fekete"},
+		                  {name: "Szürke"},
 		                  {name: "Lila"}
 	                ];
 	$scope.addColor = $scope.addColors[0];

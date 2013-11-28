@@ -51,7 +51,10 @@
 				<div id="error2" class="errorDiv"></div>
 				
 			</div>
-			<footer class="sub-box"> Készítette: Szakály Tibor, Válóczy Bálint </footer>
+			<footer class="sub-box"> 
+<!-- 			Készítette: Szakály Tibor, Válóczy Bálint -->
+				
+			</footer>
 		</div>
 
 	</div>

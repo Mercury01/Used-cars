@@ -16,25 +16,12 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 import org.bmema.usedcars.service.ImageService;
 
-//@NamedQueries({
-//	@NamedQuery(
-//		name = "critieria.search",
-//		query = "FROM Vehicle v " +
-//				"WHERE v.price BETWEEN :price_min AND :price_max "
-//				+ "v.year BETWEEN year_min AND year_max"
-//	)
-//})
-//@NamedQueries({
-//	@NamedQuery(
-//		name = "vehicle.updatePicture",
-//		query = "UPDATE Vehicle v " +
-//				"SET v.picture=:picture" +
-//				"WHERE v.licensePlate=:licensePlate"
-//	)
-//})
+/**
+ * @author Bazint
+ *
+ */
 @Entity
 @Table(name = "vehicle")
-//@JsonIgnoreProperties(ignoreUnknown=true)
 public class Vehicle {
 
 	@Transient
@@ -45,7 +32,7 @@ public class Vehicle {
 	private String licensePlate;
 
 	@GeneratedValue
-	private int vehicleId;
+	private int vehicleId; //TODO probably unnecessary
 	
 	@Column(name = "price")
 	private int price;
@@ -87,6 +74,12 @@ public class Vehicle {
 	private String picture;
 	
 	private String thumbnail;
+	
+	@Column(name = "owner")
+	private String owner;
+	
+	@Transient
+	private boolean isEditable;
 	
 	/**
 	 * Returns a string representation of any object. 
@@ -236,9 +229,22 @@ public class Vehicle {
 	}
 
 	public void setThumbnail() {
-		this.thumbnail = ImageService.getThumbnailPath(new File(picture));
+		this.thumbnail = ImageService.getThumnailURLPath(new File(picture));
 	}
-	
-	
-	
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public boolean isEditable() {
+		return isEditable;
+	}
+
+	public void setEditable(boolean isEditable) {
+		this.isEditable = isEditable;
+	}
 }

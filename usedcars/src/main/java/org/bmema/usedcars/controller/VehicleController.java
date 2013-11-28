@@ -1,6 +1,7 @@
 package org.bmema.usedcars.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,15 +98,44 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value = "/vehicleDetails/{licensePlate}", method = RequestMethod.GET)
-	public @ResponseBody String get(@PathVariable String licensePlate, Model model) {
+	public @ResponseBody String get(@PathVariable String licensePlate, Model model, Principal principal) {
 		logger.info("Received request to retrieve a vehicle");
 		
 		try {
-			return jacksonMapper.writeValueAsString(dao.getVehicle(licensePlate));
+			Vehicle result = dao.getVehicle(licensePlate);
+			if(result.getOwner() != null && principal != null && 
+					result.getOwner().equalsIgnoreCase(principal.getName())) 
+			{
+				result.setEditable(true);
+			} else {
+				result.setEditable(false);
+			}
+			return jacksonMapper.writeValueAsString(result);
 		} catch (IOException e) {
 			logger.error("Cannot parse JSON respone", e);
 			return "Error";
 		}
+	}
+	
+	@RequestMapping(value="/updateVehicle/{licensePlate}", method = RequestMethod.POST)
+	public @ResponseBody String update(@PathVariable String licensePlate, 
+			@RequestBody String request, HttpServletResponse response) {
+		String responseString = "Success";
+		try {
+			Vehicle vehicle = jacksonMapper.readValue(request, Vehicle.class);
+			if(dao.updateVehicle(vehicle)) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				responseString = "Cannot update vehicle with license plate: " + licensePlate;
+			}
+		} catch (IOException e) {
+			logger.error("Unable to parse request", e);
+			responseString = "Unable to parse request";
+			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		}
+		
+		return responseString;
 	}
 	
 	//TODO not necessary
@@ -153,13 +183,14 @@ public class VehicleController {
 //	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody String add(@RequestBody String request) {
+	public @ResponseBody String add(@RequestBody String request, Principal principal) {
 		logger.info("Received request to add a vehicle");
 		
 		logger.info(request);
 		
 		try {
 			Vehicle vehicle = jacksonMapper.readValue(request, Vehicle.class);
+			vehicle.setOwner(principal.getName());
 			if(dao.addVehicle(vehicle)) {
 				return "Success";
 			} else {

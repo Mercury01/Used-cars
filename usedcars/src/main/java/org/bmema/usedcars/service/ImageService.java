@@ -20,7 +20,7 @@ public class ImageService {
 	public static final int THUMBNAIL_SIZE = 100;
 	private static Logger logger = Logger.getLogger("ImageService");
 	
-	public boolean createThumbnail(File originalImage) {
+	public boolean createThumbnailFile(File originalImage) {
 		InputStream is = null;
 		try {			
 			is = new FileInputStream(originalImage);
@@ -44,6 +44,13 @@ public class ImageService {
 		StringBuilder sb = new StringBuilder(image.getPath());
 		sb.insert(image.getPath().lastIndexOf('.'), "_tmb");
 		return sb.toString();
+	}
+	
+	public static String getThumnailURLPath(File image) {
+		StringBuilder sb = new StringBuilder(image.getPath());
+		sb.insert(image.getPath().lastIndexOf('.'), "_tmb");
+		return sb.toString().replace(File.separator, "/");
+		//Megj: A File.separator nem mûködik, mert csak futási
 	}
 	
 	private String getExtension(String path) {

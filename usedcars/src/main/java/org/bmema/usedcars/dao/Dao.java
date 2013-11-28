@@ -189,6 +189,21 @@ public class Dao {
 			return false;
 		}
 	}
+	
+	public boolean updateVehicle(Vehicle vehicle) {
+		try {
+			Vehicle original = getVehicle(vehicle.getLicensePlate());
+			vehicle.setOwner(original.getOwner());
+			vehicle.setPicture(original.getPicture());
+			vehicle.setThumbnail();
+			sessionFactory.getCurrentSession().merge(vehicle);
+//			sessionFactory.getCurrentSession().update(vehicle);
+			return true;
+		} catch (HibernateException e) {
+			logger.error("Unable to update vehicle", e);
+			return false;
+		}
+	}
 
 	public User getUser(String username) throws NotFoundException {
 		try {
@@ -257,7 +272,7 @@ public class Dao {
 				//FileUtils.copyFile(srcFile, destFile);
 				file.transferTo(persistedFile);
 				logger.info("File persisted: " + persistedFile.getPath());
-				if(!imageService.createThumbnail(persistedFile)) {
+				if(!imageService.createThumbnailFile(persistedFile)) {
 					logger.error("Unable to create thumbnail for file: " + file.getOriginalFilename());
 				}	
 				return ImageService.CONTEXT_PATH + persistedFile.getName(); //persistedFile.getPath();
@@ -295,6 +310,8 @@ public class Dao {
 			return false;
 		}
 	}
+	
+	
 	
 	
 }

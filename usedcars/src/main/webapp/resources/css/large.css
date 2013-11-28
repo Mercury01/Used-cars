@@ -226,13 +226,19 @@ li:hover {
 }
 
 /* -----------------List----------------- */
+
 .listTable {
 	width: 100%;
+	border-collapse: collapse;
+
 }
 
 .listRow {
 	background: rgba(20, 55, 110, 0.4);
 	color: silver;
+	 display: block;
+    margin-bottom: 15px;
+    border: 1px solid silver;
 	/*   margin-bottom: 10px; */
 	/*   border: solid red; */
 }

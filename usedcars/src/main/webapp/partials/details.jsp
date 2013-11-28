@@ -3,7 +3,7 @@
 	<table id="searchTable">		
 			<tr>
 				<td><label>Rendszám</label></td>
-				<td><input class="textInput" type="text" data-ng-model="detailsVehicle.licensePlate" /></td>
+				<td><input class="textInput" type="text" data-ng-model="detailsVehicle.licensePlate" readonly/></td>
 			</tr>
 			<tr>
 				<td><label>Típus</label></td>
@@ -56,4 +56,10 @@
 					</td>
 				</tr>
 		</table>
+		<div ng-show="isEditable">
+			<ul>
+				<li class="functionList" data-ng-click="editFuncBtnClk()">Módosítás</li>
+				<li class="functionList" data-ng-click="deleteFuncBtnClk()">Törlés</li>
+			</ul>
+		</div>
 </div>
