@@ -40,8 +40,8 @@
 <!-- 						<div data-ng-show="!isSearch" data-ng-include src="'partials/add.jsp'"></div> -->
 						<div ng-switch on="rightContent">
 							<div ng-switch-when="search" data-ng-include src="'partials/search.jsp'"></div>
-							<div ng-switch-when="add" data-ng-include src="'partials/add.jsp'">add</div>
-							<div ng-switch-when="details" data-ng-include src="'partials/details.jsp'">details</div>
+							<div ng-switch-when="add" data-ng-include src="'partials/add.jsp'"></div>
+							<div ng-switch-when="details" data-ng-include src="'partials/details.jsp'"></div>
 					</div>
 				<ul>
 					<li class="functionList" data-ng-click="searchFuncBtnClk()">Keresés</li>
@@ -54,6 +54,7 @@
 			<footer class="sub-box"> 
 <!-- 			Készítette: Szakály Tibor, Válóczy Bálint -->
 				
+				<div ng-include src="'partials/loginMini.jsp'"></div>
 			</footer>
 		</div>
 

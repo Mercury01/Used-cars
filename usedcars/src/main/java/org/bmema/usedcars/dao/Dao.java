@@ -205,6 +205,18 @@ public class Dao {
 		}
 	}
 
+	public boolean deleteVehicle(String licensePlate) {
+		logger.info("Deleting vehicle with l. plate: " + licensePlate);
+		try {
+			Vehicle vehicle = getVehicle(licensePlate);
+			sessionFactory.getCurrentSession().delete(vehicle);
+			return true;
+		} catch (HibernateException e) {
+			logger.error("Unable to update vehicle", e);
+			return false;
+		}
+	}
+	
 	public User getUser(String username) throws NotFoundException {
 		try {
 			return (User) sessionFactory.getCurrentSession().get(User.class, username);

@@ -3,14 +3,15 @@
 	<form action="j_spring_security_check?ajax=true" method="post">
 		<p>
 			<label for="j_username" class="formLabel">Felhasználónév</label> 
-			<input name="j_username" type="text" class="formInput"/>
+			<input name="j_username" type="text" class="formInput" ng-model="loginUsername"/>
 		</p>
 		<p>
 			<label for="j_password" class="formLabel">Jelszó</label> 
-			<input name="j_password" type="password" class="formInput"/>
+			<input name="j_password" type="password" class="formInput" ng-model="loginPassword"/>
 		</p>
 		<p>
-			<input type="submit" value="Bejelentkezés" class="formButton"/>
+<!-- 			<input type="submit" value="Bejelentkezés" class="formButton"/> -->
+			<input type="button" value="Bejelentkezés" class="formButton" ng-click="login()" />
 		</p>
 	</form>
 	

@@ -60,9 +60,9 @@ public class VehicleController {
 //	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String getHomePage() {
+	public void getHomePage() {
 		logger.info("Received request to show the home page");
-		return "home";
+//		return "home";
 	}
 	
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -132,6 +132,25 @@ public class VehicleController {
 		} catch (IOException e) {
 			logger.error("Unable to parse request", e);
 			responseString = "Unable to parse request";
+			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		}
+		
+		return responseString;
+	}
+	
+	@RequestMapping(value="/deleteVehicle/{licensePlate}", method = RequestMethod.GET)
+	public @ResponseBody String delete(@PathVariable String licensePlate, HttpServletResponse response) {
+		String responseString = "Success";
+		try {
+			if(dao.deleteVehicle(licensePlate)) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				responseString = "Cannot delete vehicle with license plate: " + licensePlate;
+			}
+		} catch (Exception e) {
+			logger.error("Unable to delete vehicle", e);
+			responseString = "Cannot delete vehicle with license plate: " + licensePlate;
 			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		}
 		

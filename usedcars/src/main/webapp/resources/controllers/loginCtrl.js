@@ -3,6 +3,7 @@
  */
 
 loginCtrl = function($scope, $http) {
+	
 	register = function() {
 		
 		console.log("Registering user: " + $scope.registerUsername);
@@ -17,15 +18,42 @@ loginCtrl = function($scope, $http) {
 			method : "POST",
 			data : JSON.stringify(registerForm)
 		}).success(function(data) {
-			alert(data);
-			console.log("Registration succesful");
+			console.log("Registration successful");
 			console.log(data);
+			showError2("Sikeres regisztráció");
 		}).error(function(data) {
 			console.log("Registration failed");
 		});
 		//TODO floatoljon be valami szar, vagy tünjön el a regisztráció, vagy vmi
 	};
+	
+	//TODO ofc nem jelenik meg újra, ha lejár a session
+	$scope.login = function() {
+		console.log("Login click");
+		var url = "j_spring_security_check?ajax=true&" + 
+		"j_username=" + $scope.loginUsername +
+		"&j_password= " + $scope.loginPassword;
+		
+		console.log(url);
+		
+		$http({
+			url : "j_spring_security_check?ajax=true&" + 
+					"j_username=" + $scope.loginUsername +
+					"&j_password=" + $scope.loginPassword,
+			method : "POST",
+//			data : JSON.stringify(loginForm)//$(".loginForm").serialize()//
+		}).success(function(data) {
+			console.log("Login successful");
+			$scope.isLoggedIn = true;
+		}).error(function(data) {
+			console.log("Login failed");
+		});
+	};
+	
+	
 };
+
+
 
 
 

@@ -59,11 +59,12 @@ public class SecurityService implements UserDetailsService {
 			User dbUser = dao.getUser(username);
 			if(dbUser == null) {
 				logger.error("User " + username + " not found");
+			} else {
+				user = new org.springframework.security.core.userdetails.User(
+						dbUser.getUsername(), dbUser.getPassword().toLowerCase(),
+						true, true, true, true, getAuthorities(dbUser.getAccess()));
+				logger.info("User login succesful: " + dbUser.getUsername());
 			}
-			user = new org.springframework.security.core.userdetails.User(
-					dbUser.getUsername(), dbUser.getPassword().toLowerCase(),
-					true, true, true, true, getAuthorities(dbUser.getAccess()));
-			logger.info("User login succesful: " + dbUser.getUsername());
 		} catch (NotFoundException e) {
 			logger.error("Error retrieving user", e);
 		} catch (Exception e) {

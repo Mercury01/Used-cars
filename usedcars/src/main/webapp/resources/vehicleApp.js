@@ -20,6 +20,8 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 //	$scope.isDetails = true; //TODO
 	$scope.isEditable = false;
 	$scope.rightContent = 'search';
+	//TODO ofc nem jelenik meg újra, ha lejár a session
+	$scope.isLoggedIn = false;
 	
 //	function EventController($scope) {
 //		  $scope.$on('SearchComplete', function() {
@@ -123,6 +125,7 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 //		}
 //	};
 	
+	//TODO unnecessary
 	$scope.getImage = function(vehicle) {
 		console.log(vehicle.thumbnail);
 //		$scope.thumbnail = vehicle.thumbnail;
@@ -215,7 +218,16 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 	};
 	
 	$scope.deleteFuncBtnClk = function() {
-		
+		$http({
+			url : "deleteVehicle/" + $scope.detailsVehicle.licensePlate,
+			method : "GET"
+		}).success(function(data) {
+
+			$scope.$broadcast("REFRESH");
+			$scope.rightContent = 'search';
+		}).error(function(data) {
+			showError2(data);
+		});
 	};
 //	$scope.searchResultFuncBtnClk = function() {
 //		$scope.isTopList = true;

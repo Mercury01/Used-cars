@@ -28,7 +28,7 @@
 		 
 		<security:form-login
 				login-page="/partials/login.jsp" 
-				authentication-failure-url="/login?error=true" 
+				authentication-failure-url="/" 
 				default-target-url="/"
 				always-use-default-target="true"/>
 			

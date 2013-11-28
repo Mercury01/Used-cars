@@ -57,14 +57,15 @@ header {
 }
 
 footer {
-	height: 24px;
+	height: 80px;
 	margin-top: 20px;
-	padding: 45px 25px;
+	padding: 17px 25px;
 	/* 	text-align: center; */
 	/* 	vertical-align: middle; */
 	background-color: rgba(34, 126, 203, 0.6);
 	font-size: 18px;
 	text-align: center;
+/* 	display: block; */
 }
 
 .errorDiv {
