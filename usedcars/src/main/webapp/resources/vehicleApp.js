@@ -114,6 +114,18 @@ vehicleApp.controller('vehicleCtrl', function vehicleCtrl($scope, $http, $locati
 		});
 	});
 	
+//	$scope.login = function() {
+//		console.log("Login click");
+//		//TODO delete
+//		var url = "j_spring_security_check?ajax=true&" + 
+//		"j_username=" + $scope.loginUsername +
+//		"&j_password= " + $scope.loginPassword;
+//		console.log(url);
+//		
+////		document.getElementById('#addDiv').src = 'partials/add.jsp';
+//		$(this).find('#addDiv').hide();
+//	};
+	
 //	$scope.detailsInit = function() {
 //		console.log("details init");
 //	};

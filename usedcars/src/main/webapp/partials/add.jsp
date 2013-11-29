@@ -3,7 +3,7 @@
 	<h3 class="title">Feltöltés</h3>
 <!-- 	<form id="searchForm"> -->
 		<table id="searchTable">
-			<security:authorize ifAllGranted="ROLE_ADMIN">
+			<security:authorize ifAllGranted="ROLE_ADMIN" >
 			<tr>
 				<td><label>Rendszám</label></td>
 				<td><input class="textInput" type="text" data-ng-model="addLicense" placeholder="Rendszám" /></td>

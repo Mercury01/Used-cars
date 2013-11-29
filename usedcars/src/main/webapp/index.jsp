@@ -52,9 +52,9 @@
 				
 			</div>
 			<footer class="sub-box"> 
-<!-- 			Készítette: Szakály Tibor, Válóczy Bálint -->
+			<br />Készítette: Szakály Tibor, Válóczy Bálint
 				
-				<div ng-include src="'partials/loginMini.jsp'"></div>
+<!-- 				<div ng-include src="'partials/loginMini.jsp'"></div> -->
 			</footer>
 		</div>
 
